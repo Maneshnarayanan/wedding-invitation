@@ -1,0 +1,311 @@
+/* ==========================================================================
+   KERALA TRADITIONAL WEDDING INVITATION - DESIGN SYSTEM
+   Theme: Kerala Kasavu Gold, Temple Maroon, Auspicious Ivory & Royal Emerald
+   ========================================================================== */
+
+:root {
+  /* Kerala Kasavu Palette */
+  --color-gold-50: #FFFDF7;
+  --color-gold-100: #FCF7E6;
+  --color-gold-200: #F6ECC4;
+  --color-gold-300: #EDDB95;
+  --color-gold-400: #DFB847;
+  --color-gold-500: #D4AF37; /* Kasavu Zari Gold */
+  --color-gold-600: #B88E1F;
+  --color-gold-700: #8F6913;
+  --color-gold-800: #6B4E0E;
+  
+  /* Traditional Kerala Accent Tones */
+  --color-temple-maroon: #681726;
+  --color-temple-maroon-dark: #3E0C15;
+  --color-kasavu-cream: #FCF9F2;
+  
+  --color-bg-base: #0E1318; /* Royal Temple Night */
+  --color-bg-surface: #151C24;
+  --color-bg-card: rgba(23, 30, 42, 0.85);
+  --color-bg-glass: rgba(16, 22, 30, 0.9);
+  --color-bg-glass-light: rgba(212, 175, 55, 0.06);
+  
+  --color-text-primary: #FAF9F5;
+  --color-text-secondary: #D9D7CE;
+  --color-text-muted: #A3A096;
+  --color-text-gold: #F4E2A8;
+  
+  --color-border-gold: rgba(212, 175, 55, 0.45);
+  --color-border-subtle: rgba(212, 175, 55, 0.15);
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, #FFF6D5 0%, #D4AF37 50%, #9B771A 100%);
+  --gradient-gold-text: linear-gradient(90deg, #FFF3D1 0%, #E5C158 35%, #FFF0C2 70%, #C49826 100%);
+  --gradient-card: linear-gradient(145deg, rgba(30, 39, 54, 0.88) 0%, rgba(18, 24, 34, 0.95) 100%);
+  --gradient-maroon: linear-gradient(135deg, #872033 0%, #52101D 100%);
+
+  /* Kasavu Zari Border Motif */
+  --kasavu-border-pattern: repeating-linear-gradient(90deg, #B88E1F 0px, #FFECA9 4px, #D4AF37 8px, #8F6913 12px);
+
+  /* Typography */
+  --font-serif-royal: 'Cinzel', serif;
+  --font-serif-decorative: 'Cinzel Decorative', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-editorial: 'Playfair Display', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-malayalam: 'Manjari', 'Noto Sans Malayalam', sans-serif;
+
+  /* Shadows & Glows */
+  --shadow-gold-sm: 0 4px 14px 0 rgba(212, 175, 55, 0.2);
+  --shadow-gold-lg: 0 12px 32px -4px rgba(212, 175, 55, 0.3);
+  --shadow-card: 0 20px 45px -12px rgba(0, 0, 0, 0.75);
+  --glow-gold: 0 0 25px rgba(212, 175, 55, 0.4);
+
+  /* Transitions */
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Kerala Kasavu Silk Alternate Theme */
+[data-theme='warm-silk'] {
+  --color-bg-base: #FBF9F3;
+  --color-bg-surface: #F4EFE2;
+  --color-bg-card: rgba(255, 255, 255, 0.92);
+  --color-bg-glass: rgba(251, 249, 243, 0.95);
+  --color-bg-glass-light: rgba(212, 175, 55, 0.08);
+  --color-text-primary: #211B14;
+  --color-text-secondary: #4A3E31;
+  --color-text-muted: #7D7060;
+  --color-text-gold: #855F0D;
+  --color-border-gold: rgba(184, 142, 31, 0.5);
+  --color-border-subtle: rgba(184, 142, 31, 0.18);
+  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F9F5EC 100%);
+  --shadow-card: 0 16px 36px -10px rgba(100, 75, 30, 0.16);
+}
+
+/* Reset & Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Canvas Floating Flowers & Sparkles */
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Typography */
+.font-royal { font-family: var(--font-serif-royal); }
+.font-decorative { font-family: var(--font-serif-decorative); }
+.font-script { font-family: var(--font-script); }
+.font-editorial { font-family: var(--font-editorial); }
+.font-sans { font-family: var(--font-sans); }
+.font-malayalam { font-family: var(--font-malayalam); }
+
+.text-gold-gradient {
+  background: var(--gradient-gold-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-accent {
+  color: var(--color-gold-400);
+}
+
+/* Section Header Motif */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+.section-tag {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold-400);
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.35rem 1.2rem;
+  background: var(--color-bg-glass-light);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 9999px;
+}
+
+.section-title {
+  font-family: var(--font-serif-royal);
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem auto 0;
+  max-width: 320px;
+}
+
+.section-divider .line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+}
+
+.section-divider .symbol {
+  color: var(--color-gold-400);
+  font-size: 1.3rem;
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+/* Traditional Kasavu Border Card */
+.glass-card {
+  background: var(--gradient-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Kasavu Golden Zari Header Ribbon */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--kasavu-border-pattern);
+}
+
+.glass-card:hover {
+  border-color: rgba(212, 175, 55, 0.7);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card), var(--shadow-gold-sm);
+}
+
+/* Gold Buttons */
+.btn-gold-primary {
+  background: var(--gradient-gold);
+  color: #1A1405;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  box-shadow: var(--shadow-gold-sm);
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-gold-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-gold-lg);
+  filter: brightness(1.05);
+}
+
+.btn-gold-secondary {
+  background: var(--color-bg-glass-light);
+  color: var(--color-gold-300);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1.85rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border-gold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-gold-secondary:hover {
+  background: rgba(212, 175, 55, 0.18);
+  color: #FFF;
+  border-color: var(--color-gold-400);
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9)); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.5);
+  border-radius: 4px;
+}
