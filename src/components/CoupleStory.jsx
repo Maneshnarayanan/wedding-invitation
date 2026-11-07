@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Sparkles } from 'lucide-react';
+import { Sparkles, Heart } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function CoupleStory() {
@@ -8,9 +8,9 @@ export default function CoupleStory() {
       <div className="container">
         
         {/* Sacred Traditional Sloka Card */}
-        <div className="sloka-card glass-card">
+        <div className="sloka-card glass-card reveal-on-scroll">
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.8rem' }}>
-            <span style={{ fontSize: '1.8rem' }}>🪔</span>
+            <span style={{ fontSize: '2rem' }}>🪔</span>
           </div>
           <p className="sloka-sanskrit font-royal">
             {weddingConfig.sacredSloka.sanskrit}
@@ -32,8 +32,8 @@ export default function CoupleStory() {
         </div>
 
         {/* Section Header */}
-        <div className="section-header">
-          <span className="section-tag">Auspicious Union</span>
+        <div className="section-header reveal-on-scroll">
+          <span className="section-tag">Auspicious Union • മംഗള സംഗമം</span>
           <h2 className="section-title">The Bride & The Groom</h2>
           <div className="section-divider">
             <span className="line" />
@@ -46,32 +46,47 @@ export default function CoupleStory() {
         <div className="couple-grid">
           
           {/* Groom Card */}
-          <div className="couple-card glass-card">
-            <div className="couple-photo-wrapper">
-              <img
-                src={weddingConfig.groom.photo}
-                alt={weddingConfig.groom.fullName}
-                className="couple-photo"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="couple-name">{weddingConfig.groom.fullName}</h3>
-            <p className="couple-role">{weddingConfig.groom.role}</p>
+          <div className="couple-card glass-card reveal-on-scroll">
             
-            <div className="couple-family-box">
-              <div className="couple-family-row">
-                <span className="family-label">Son of</span>
-                <p className="family-value">{weddingConfig.groom.parents}</p>
+            {/* Role Header Pill */}
+            <div className="couple-role-pill groom-pill">
+              <span className="role-ml font-malayalam">വരൻ</span>
+              <span className="role-dot">•</span>
+              <span className="role-en">THE GROOM</span>
+            </div>
+
+            {/* Regal Temple Arch Frame Photo */}
+            <div className="couple-arch-wrapper">
+              <div className="couple-arch-frame">
+                <img
+                  src={weddingConfig.groom.photo}
+                  alt={weddingConfig.groom.fullName}
+                  className="couple-arch-photo"
+                  loading="lazy"
+                />
               </div>
+            </div>
+
+            <h3 className="couple-name text-gold-gradient font-royal">{weddingConfig.groom.fullName}</h3>
+            
+            {/* Structured Auspicious Family Details Card */}
+            <div className="couple-family-card">
+              <div className="family-item">
+                <span className="family-item-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
+                <p className="family-item-name">{weddingConfig.groom.parents}</p>
+              </div>
+
               {weddingConfig.groom.house && (
-                <div className="couple-family-row">
-                  <p className="family-sub-value">{weddingConfig.groom.house}</p>
+                <div className="family-item">
+                  <span className="family-item-label font-malayalam">തറവാട് • Ancestral Home</span>
+                  <p className="family-item-name">{weddingConfig.groom.house}</p>
                 </div>
               )}
+
               {weddingConfig.groom.nephewOf && (
-                <div className="couple-family-row nephew-row">
-                  <span className="family-sub-tag">N/o:</span>
-                  <p className="family-relation-value">{weddingConfig.groom.nephewOf}</p>
+                <div className="family-item nephew-item">
+                  <span className="family-item-label font-malayalam">അമ്മാവൻ • Uncle Lineage (N/o)</span>
+                  <p className="family-item-name">{weddingConfig.groom.nephewOf}</p>
                 </div>
               )}
             </div>
@@ -80,42 +95,56 @@ export default function CoupleStory() {
           </div>
 
           {/* Center Nilavilakku (Traditional Keralam Lamp) Emblem */}
-          <div className="couple-center-emblem">
-            <div className="emblem-ring" style={{ width: '76px', height: '76px', borderStyle: 'solid' }}>
-              <span style={{ fontSize: '2.2rem' }}>🪔</span>
+          <div className="couple-center-emblem reveal-on-scroll">
+            <div className="emblem-halo">
+              <span className="emblem-lamp-icon">🪔</span>
             </div>
-            <span style={{ fontFamily: 'var(--font-script)', fontSize: '2.3rem', color: 'var(--color-gold-400)' }}>
-              weds
-            </span>
+            <span className="emblem-script font-script">weds</span>
+            <span className="emblem-tag font-malayalam">വിവാഹം</span>
           </div>
 
           {/* Bride Card */}
-          <div className="couple-card glass-card">
-            <div className="couple-photo-wrapper">
-              <img
-                src={weddingConfig.bride.photo}
-                alt={weddingConfig.bride.fullName}
-                className="couple-photo"
-                loading="lazy"
-              />
+          <div className="couple-card glass-card reveal-on-scroll">
+            
+            {/* Role Header Pill */}
+            <div className="couple-role-pill bride-pill">
+              <span className="role-ml font-malayalam">വധു</span>
+              <span className="role-dot">•</span>
+              <span className="role-en">THE BRIDE</span>
             </div>
-            <h3 className="couple-name">{weddingConfig.bride.fullName}</h3>
-            <p className="couple-role">{weddingConfig.bride.role}</p>
 
-            <div className="couple-family-box">
-              <div className="couple-family-row">
-                <span className="family-label">Daughter of</span>
-                <p className="family-value">{weddingConfig.bride.parents}</p>
+            {/* Regal Temple Arch Frame Photo */}
+            <div className="couple-arch-wrapper">
+              <div className="couple-arch-frame">
+                <img
+                  src={weddingConfig.bride.photo}
+                  alt={weddingConfig.bride.fullName}
+                  className="couple-arch-photo"
+                  loading="lazy"
+                />
               </div>
+            </div>
+
+            <h3 className="couple-name text-gold-gradient font-royal">{weddingConfig.bride.fullName}</h3>
+
+            {/* Structured Auspicious Family Details Card */}
+            <div className="couple-family-card">
+              <div className="family-item">
+                <span className="family-item-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
+                <p className="family-item-name">{weddingConfig.bride.parents}</p>
+              </div>
+
               {weddingConfig.bride.house && (
-                <div className="couple-family-row">
-                  <p className="family-sub-value">{weddingConfig.bride.house}</p>
+                <div className="family-item">
+                  <span className="family-item-label font-malayalam">തറവാട് • Ancestral Home</span>
+                  <p className="family-item-name">{weddingConfig.bride.house}</p>
                 </div>
               )}
+
               {weddingConfig.bride.nephewOf && (
-                <div className="couple-family-row nephew-row">
-                  <span className="family-sub-tag">N/o:</span>
-                  <p className="family-relation-value">{weddingConfig.bride.nephewOf}</p>
+                <div className="family-item nephew-item">
+                  <span className="family-item-label font-malayalam">അമ്മാവൻ • Uncle Lineage (N/o)</span>
+                  <p className="family-item-name">{weddingConfig.bride.nephewOf}</p>
                 </div>
               )}
             </div>
@@ -126,7 +155,7 @@ export default function CoupleStory() {
 
         {/* --- OUR STORY SECTION --- */}
         <div id="story" style={{ paddingTop: '2rem' }}>
-          <div className="section-header">
+          <div className="section-header reveal-on-scroll">
             <span className="section-tag">Auspicious Milestones</span>
             <h2 className="section-title">The Sacred Journey</h2>
             <div className="section-divider">
@@ -140,7 +169,7 @@ export default function CoupleStory() {
             <div className="timeline-line" />
             
             {weddingConfig.ourStory.map((item, index) => (
-              <div key={item.year} className="timeline-item">
+              <div key={item.year} className="timeline-item reveal-on-scroll">
                 <div className="timeline-node" />
                 <div className="timeline-content glass-card">
                   <span className="timeline-year">{item.year} • {item.tag}</span>

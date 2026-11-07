@@ -10,7 +10,7 @@ export default function VenueMap() {
     <section id="venue" style={{ padding: '5rem 0' }}>
       <div className="container">
         
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <span className="section-tag">Auspicious Venue</span>
           <h2 className="section-title">The Wedding Venue</h2>
           <div className="section-divider">
@@ -25,7 +25,7 @@ export default function VenueMap() {
 
         <div className="venue-wrapper">
           {/* Venue Info Card */}
-          <div className="venue-info-card glass-card">
+          <div className="venue-info-card glass-card reveal-on-scroll">
             <div>
               <h3 className="venue-name">{weddingConfig.venue.name}</h3>
               <p className="venue-hall">{weddingConfig.venue.hall}</p>
@@ -71,7 +71,7 @@ export default function VenueMap() {
           </div>
 
           {/* Map Embed Frame */}
-          <div className="map-container">
+          <div className="map-container reveal-on-scroll">
             <iframe
               title="Raj Palace Auditorium Poinachi Location"
               src={embedUrl}

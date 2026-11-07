@@ -1,133 +1,163 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, Music } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 
-export default function MusicPlayer({ isPlaying: externalPlaying, setIsPlaying: setExternalPlaying }) {
-  const [internalPlaying, setInternalPlaying] = useState(false);
-  const isPlaying = externalPlaying !== undefined ? externalPlaying : internalPlaying;
-  const setIsPlaying = setExternalPlaying || setInternalPlaying;
-
+export default function MusicPlayer({ isPlaying, toggleMusic }) {
   const audioCtxRef = useRef(null);
   const timerRef = useRef(null);
+  const droneOscsRef = useRef([]);
+  const droneGainRef = useRef(null);
 
-  // Soft Indian / Romantic harp arpeggio chords in Kalyani / Major pentatonic
-  const chords = [
-    [261.63, 329.63, 392.00, 493.88], // C, E, G, B
-    [220.00, 261.63, 329.63, 440.00], // A, C, E, A
-    [174.61, 261.63, 329.63, 392.00], // F, C, E, G
-    [196.00, 246.94, 293.66, 392.00]  // G, B, D, G
+  // Auspicious Keralam Wedding Raga (Mohanam - S R2 G3 P D2 S')
+  // Sa: 261.63, Ri: 293.66, Ga: 329.63, Pa: 392.00, Dha: 440.00, Sa': 523.25
+  const phrases = [
+    [261.63, 329.63, 392.00, 440.00, 523.25], // S G P D S'
+    [523.25, 440.00, 392.00, 329.63, 293.66], // S' D P G R
+    [293.66, 329.63, 392.00, 440.00, 392.00], // R G P D P
+    [392.00, 329.63, 293.66, 220.00, 261.63], // P G R D_low S
+    [261.63, 329.63, 392.00, 523.25, 440.00], // S G P S' D
+    [440.00, 392.00, 329.63, 293.66, 261.63]  // D P G R S
   ];
 
-  const playPluck = (ctx, freq, time) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+  const playVeenaPluck = (ctx, freq, time) => {
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
 
-    // Gentle triangle wave with warm lowpass filter
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(freq, time);
+      osc.type = 'triangle'; // warm string harmonic
+      osc.frequency.setValueAtTime(freq, time);
 
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(800, time);
-    filter.frequency.exponentialRampToValueAtTime(300, time + 1.5);
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1100, time);
+      filter.frequency.exponentialRampToValueAtTime(320, time + 1.5);
 
-    gain.gain.setValueAtTime(0.001, time);
-    gain.gain.linearRampToValueAtTime(0.08, time + 0.08);
-    gain.gain.exponentialRampToValueAtTime(0.0001, time + 2.2);
+      gain.gain.setValueAtTime(0.0001, time);
+      gain.gain.linearRampToValueAtTime(0.12, time + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.7);
 
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(ctx.destination);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
 
-    osc.start(time);
-    osc.stop(time + 2.3);
+      osc.start(time);
+      osc.stop(time + 1.75);
+    } catch (e) {
+      // Audio node fallback
+    }
   };
 
-  const startAmbientChords = () => {
-    if (!audioCtxRef.current) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtxRef.current = new AudioContext();
+  const startDrone = (ctx) => {
+    if (droneGainRef.current) return;
+    try {
+      const droneGain = ctx.createGain();
+      droneGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      droneGain.gain.linearRampToValueAtTime(0.022, ctx.currentTime + 1.5); // very soft ambient tanpura foundation
+
+      const oscSa = ctx.createOscillator();
+      oscSa.type = 'sine';
+      oscSa.frequency.setValueAtTime(130.81, ctx.currentTime); // C3 Sa
+
+      const oscPa = ctx.createOscillator();
+      oscPa.type = 'sine';
+      oscPa.frequency.setValueAtTime(196.00, ctx.currentTime); // G3 Pa
+
+      oscSa.connect(droneGain);
+      oscPa.connect(droneGain);
+      droneGain.connect(ctx.destination);
+
+      oscSa.start();
+      oscPa.start();
+
+      droneOscsRef.current = [oscSa, oscPa];
+      droneGainRef.current = droneGain;
+    } catch (e) {
+      // Drone fallback
     }
-
-    const ctx = audioCtxRef.current;
-    if (ctx.state === 'suspended') {
-      ctx.resume();
-    }
-
-    let chordIdx = 0;
-    const playNext = () => {
-      const currentChord = chords[chordIdx % chords.length];
-      const now = ctx.currentTime;
-
-      currentChord.forEach((note, nIdx) => {
-        playPluck(ctx, note, now + nIdx * 0.45);
-      });
-
-      chordIdx++;
-      timerRef.current = setTimeout(playNext, 2400);
-    };
-
-    playNext();
   };
 
-  const stopAmbientChords = () => {
+  const stopDrone = (ctx) => {
+    if (droneGainRef.current && ctx) {
+      try {
+        droneGainRef.current.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
+        setTimeout(() => {
+          droneOscsRef.current.forEach((o) => {
+            try { o.stop(); } catch (err) {}
+          });
+          droneOscsRef.current = [];
+          droneGainRef.current = null;
+        }, 550);
+      } catch (err) {
+        droneGainRef.current = null;
+      }
+    }
+  };
+
+  const startMusic = async () => {
+    try {
+      if (!audioCtxRef.current) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        audioCtxRef.current = new AudioCtx();
+      }
+
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') {
+        await ctx.resume();
+      }
+
+      startDrone(ctx);
+
+      let phraseIdx = 0;
+      const playNextPhrase = () => {
+        if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') return;
+        const currentPhrase = phrases[phraseIdx % phrases.length];
+        const now = ctx.currentTime;
+
+        currentPhrase.forEach((note, nIdx) => {
+          playVeenaPluck(ctx, note, now + nIdx * 0.42);
+        });
+
+        phraseIdx++;
+        timerRef.current = setTimeout(playNextPhrase, 2600);
+      };
+
+      playNextPhrase();
+    } catch (e) {
+      // Audio autoplay policy fallback
+    }
+  };
+
+  const stopMusic = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
-  };
-
-  const toggleMusic = () => {
-    if (isPlaying) {
-      stopAmbientChords();
-      setIsPlaying(false);
-    } else {
-      startAmbientChords();
-      setIsPlaying(true);
+    if (audioCtxRef.current) {
+      stopDrone(audioCtxRef.current);
     }
   };
 
   useEffect(() => {
     if (isPlaying) {
-      startAmbientChords();
+      startMusic();
     } else {
-      stopAmbientChords();
+      stopMusic();
     }
+    return () => {
+      stopMusic();
+    };
   }, [isPlaying]);
 
-  // Mobile audio policy unlock: resume audio context on first touch/tap if suspended
-  useEffect(() => {
-    const handleFirstTouch = () => {
-      if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
-        audioCtxRef.current.resume();
-      }
-    };
-    window.addEventListener('touchstart', handleFirstTouch, { passive: true, once: true });
-    window.addEventListener('click', handleFirstTouch, { once: true });
-    return () => {
-      window.removeEventListener('touchstart', handleFirstTouch);
-      window.removeEventListener('click', handleFirstTouch);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      stopAmbientChords();
-      if (audioCtxRef.current) {
-        audioCtxRef.current.close();
-      }
-    };
-  }, []);
-
   return (
-    <div style={{ position: 'fixed', bottom: '1.8rem', right: '1.8rem', zIndex: 999 }}>
+    /* Sleek Desktop Music Indicator & Mute Pill (Bottom Right) */
+    <div className="desktop-music-pill-wrapper">
       <button
         onClick={toggleMusic}
-        className={`floating-music-btn ${isPlaying ? 'music-spinning' : ''}`}
-        aria-label={isPlaying ? 'Mute ambient wedding music' : 'Play ambient wedding music'}
-        title={isPlaying ? 'Click to Mute Music' : 'Click to Play Ambient Music'}
+        className={`floating-music-pill ${isPlaying ? 'music-playing' : ''}`}
+        aria-label={isPlaying ? 'Mute auspicious wedding music' : 'Play auspicious wedding music'}
+        title={isPlaying ? 'Click to Mute Music (Raga Mohanam)' : 'Click to Play Music (Raga Mohanam)'}
       >
-        {isPlaying ? <Volume2 size={24} /> : <Music size={22} />}
-        {isPlaying && <span className="music-wave-indicator">LIVE</span>}
+        {isPlaying ? <Volume2 size={16} /> : <VolumeX size={16} />}
+        <span className="music-pill-text">{isPlaying ? 'Raga Mohanam ♫' : 'Music Off'}</span>
       </button>
     </div>
   );

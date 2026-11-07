@@ -9,9 +9,13 @@ import PhotoGallery from './components/PhotoGallery';
 import Footer from './components/Footer';
 import OpeningCeremony from './components/OpeningCeremony';
 import MobileActionDock from './components/MobileActionDock';
+import useScrollReveal from './hooks/useScrollReveal';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
+
+  // Trigger smooth scroll-in animations as user scrolls down
+  useScrollReveal();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme === 'warm-silk' ? 'warm-silk' : 'dark');
@@ -30,7 +34,10 @@ export default function App() {
       <PetalsCanvas />
 
       {/* Floating Navigation Header */}
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
 
       {/* Main Content Sections */}
       <main>

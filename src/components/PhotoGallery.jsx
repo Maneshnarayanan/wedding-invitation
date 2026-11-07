@@ -38,7 +38,7 @@ export default function PhotoGallery() {
     <section id="gallery" style={{ padding: '4.5rem 0' }}>
       <div className="container">
         
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <span className="section-tag">Memories</span>
           <h2 className="section-title">Captured Moments</h2>
           <div className="section-divider">
@@ -52,7 +52,7 @@ export default function PhotoGallery() {
         </div>
 
         {/* --- MOBILE TOUCH-SWIPE CAROUSEL (Visible on Mobile) --- */}
-        <div className="gallery-mobile-carousel-wrapper">
+        <div className="gallery-mobile-carousel-wrapper reveal-on-scroll">
           <div
             className="gallery-mobile-track"
             ref={carouselRef}

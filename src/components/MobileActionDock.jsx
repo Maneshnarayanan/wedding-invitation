@@ -72,10 +72,10 @@ export default function MobileActionDock() {
     <>
       {/* Toast Notification when guest showers blessings */}
       {showToast && (
-        <div className="blessing-toast">
-          <span>🌸</span>
-          <span className="font-malayalam">പുഷ്പവൃഷ്ടി അനുഗ്രഹം നേർന്നു!</span>
-          <span style={{ fontSize: '0.8rem', opacity: 0.9 }}>({blessingCount})</span>
+        <div className="blessing-toast" role="status" aria-live="polite">
+          <span className="toast-flower-icon">🌸</span>
+          <span className="font-malayalam toast-malayalam-text">പുഷ്പവൃഷ്ടി അനുഗ്രഹം നേർന്നു!</span>
+          <span className="toast-sparkle">✨</span>
         </div>
       )}
 

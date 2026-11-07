@@ -12,7 +12,7 @@ export default function EventsTimeline() {
     <section id="events" style={{ padding: '5rem 0' }}>
       <div className="container">
         
-        <div className="section-header">
+        <div className="section-header reveal-on-scroll">
           <span className="section-tag">Auspicious Ceremony</span>
           <h2 className="section-title">The Wedding Muhurtham</h2>
           <div className="section-divider">
@@ -30,7 +30,7 @@ export default function EventsTimeline() {
             const IconComponent = iconMap[event.icon] || HeartHandshake;
 
             return (
-              <div key={event.id} className="event-card glass-card" style={{ padding: '2.5rem 2rem' }}>
+              <div key={event.id} className="event-card glass-card reveal-on-scroll" style={{ padding: '2.5rem 2rem' }}>
                 <div>
                   <div className="event-icon-badge" style={{ width: '56px', height: '56px' }}>
                     <IconComponent size={30} />
