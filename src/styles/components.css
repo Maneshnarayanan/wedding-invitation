@@ -365,6 +365,70 @@
   margin-bottom: 0.8rem;
 }
 
+.couple-family-box {
+  margin: 1.1rem 0 1.3rem;
+  padding: 1rem 1.15rem;
+  background: var(--color-bg-glass-light);
+  border-radius: 14px;
+  border: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.couple-family-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.family-label {
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold-400);
+  font-weight: 700;
+}
+
+.family-value {
+  font-size: 0.96rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.family-sub-value {
+  font-size: 0.9rem;
+  color: var(--color-gold-200);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.nephew-row {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.2rem;
+  padding-top: 0.45rem;
+  border-top: 1px dashed var(--color-border-subtle);
+}
+
+.family-sub-tag {
+  font-size: 0.78rem;
+  color: var(--color-gold-400);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.family-relation-value {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
 .couple-bio {
   font-family: var(--font-editorial);
   font-size: 0.96rem;
@@ -1171,5 +1235,253 @@
   /* Form & inputs */
   .form-input, .form-textarea {
     font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+  }
+}
+
+/* ==========================================================================
+   OPENING CEREMONY & ENTRANCE SPARKLE EXPERIENCE
+   ========================================================================== */
+.opening-ceremony-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: radial-gradient(circle at 50% 45%, rgba(62, 12, 21, 0.96) 0%, rgba(10, 14, 20, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.opening-ceremony-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.06);
+}
+
+.royal-envelope-card {
+  width: min(92%, 520px);
+  padding: 2.8rem 2.2rem;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(32, 22, 28, 0.95) 0%, rgba(16, 21, 30, 0.98) 100%);
+  border: 1.8px solid var(--color-gold-400);
+  border-radius: 26px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 45px rgba(212, 175, 55, 0.28);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+.royal-envelope-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--kasavu-border-pattern);
+}
+
+.royal-envelope-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--kasavu-border-pattern);
+}
+
+.royal-envelope-card.card-unfold {
+  transform: scale(0.96) translateY(-12px);
+  filter: brightness(1.25);
+}
+
+.opening-top-invocation {
+  margin-bottom: 1.2rem;
+}
+
+.opening-sloka-title {
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.opening-divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.opening-divider-line .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+}
+
+.opening-lamp-wrapper {
+  margin: 0.8rem 0 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.opening-lamp-halo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  border: 1.5px solid var(--color-gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45);
+  animation: pulse-glow 2.8s infinite ease-in-out;
+}
+
+.opening-lamp-emoji {
+  font-size: 2.3rem;
+  line-height: 1;
+}
+
+.opening-invitation-sub {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.28em;
+  font-weight: 600;
+  color: var(--color-gold-400);
+  text-transform: uppercase;
+}
+
+.opening-couple-names {
+  margin: 0.8rem 0 1.2rem;
+}
+
+.opening-name-text {
+  font-size: clamp(1.85rem, 5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.opening-ampersand {
+  font-size: 2.2rem;
+  color: var(--color-gold-400);
+  display: block;
+  margin: -0.2rem 0;
+}
+
+.opening-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.4rem;
+  margin: 0.5rem 0 1.4rem;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 9999px;
+  font-family: var(--font-serif-royal);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-gold-200);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.opening-date-pill .pill-dot {
+  color: var(--color-gold-400);
+}
+
+.opening-note-text {
+  font-size: 0.96rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  line-height: 1.65;
+  margin: 0 auto 1.8rem;
+  max-width: 420px;
+}
+
+.opening-action-wrapper {
+  margin-top: 0.5rem;
+}
+
+.btn-royal-open {
+  background: var(--gradient-gold);
+  color: #1A1204;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  padding: 0.95rem 2.2rem;
+  border-radius: 9999px;
+  border: 2px solid #FFF;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  box-shadow: 0 6px 26px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  max-width: 320px;
+  touch-action: manipulation;
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.btn-royal-open:hover, .btn-royal-open:active {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.7);
+  filter: brightness(1.08);
+}
+
+.btn-royal-open .font-malayalam {
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+}
+
+.btn-en-text {
+  font-size: 0.76rem;
+  letter-spacing: 0.22em;
+  font-weight: 800;
+  color: #4A3505;
+}
+
+.btn-sparkle-icon {
+  display: none;
+}
+
+/* Mobile responsive opening card */
+@media (max-width: 640px) {
+  .royal-envelope-card {
+    padding: 2.2rem 1.25rem 2.4rem;
+  }
+
+  .opening-name-text {
+    font-size: 1.75rem;
+  }
+
+  .opening-date-pill {
+    font-size: 0.84rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .opening-note-text {
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-royal-open {
+    padding: 0.85rem 1.6rem;
+  }
+
+  .btn-royal-open .font-malayalam {
+    font-size: 1.05rem;
   }
 }

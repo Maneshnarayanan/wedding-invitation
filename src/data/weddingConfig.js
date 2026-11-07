@@ -1,24 +1,34 @@
+// Real Couple Photos
+import groomPhoto from '../assets/images_web/groom_profile.jpg';
+import bridePhoto from '../assets/images_web/bride_profile.jpg';
+import ringPhoto from '../assets/images_web/ring_focused.jpg';
+import togetherSidePhoto from '../assets/images_web/together_side_by_side.jpg';
+import togetherWalkPhoto from '../assets/images_web/together_walk.jpg';
+import closeRomancePhoto from '../assets/images_web/close_romance_bouquet.jpg';
+import bouquetGivenPhoto from '../assets/images_web/bouquet_given.jpg';
+import brideFocusPhoto from '../assets/images_web/bride_focus_portrait.jpg';
+
 // Kerala Traditional Wedding Configuration
 export const weddingConfig = {
   groom: {
     name: "Manesh",
     fullName: "Manesh K",
-    father: "Sri. Narayanan T",
-    mother: "Smt. Omana C",
-    parents: "Smt. Omana C & Sri. Narayanan T",
+    parents: "Narayanan T & Omana Narayanan",
+    house: "Vadakekara House, Thokkanam",
+    nephewOf: "CH Manikandan Pakkam",
     role: "The Groom",
     bio: "Blessed by the love of family and elders, eagerly looking forward to starting an auspicious new chapter with Pooja.",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+    photo: groomPhoto
   },
   bride: {
     name: "Pooja",
     fullName: "Pooja S",
-    father: "Late Sri. Sheena Poojari",
-    mother: "Smt. Pushpalatha",
-    parents: "Smt. Pushpalatha & Late Sri. Sheena Poojari",
+    parents: "(Late) Sheena Poojary & Pushpalatha",
+    house: "Thalipadpu, Kasaragod",
+    nephewOf: "Late Babu Poojary, Karandakkad",
     role: "The Bride",
     bio: "Carrying cherished blessings from her loving family and ancestors, stepping into a lifetime of togetherness with Manesh.",
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
+    photo: bridePhoto
   },
   weddingDate: "2027-01-03T11:00:00",
   weddingDateFormatted: "Sunday, January 3, 2027",
@@ -94,24 +104,34 @@ export const weddingConfig = {
 
   gallery: [
     {
-      url: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=80",
-      title: "Traditional Kerala Kasavu",
-      caption: "Timeless heritage, golden threads, and eternal joy."
+      url: togetherSidePhoto,
+      title: "Two Souls, One Heart",
+      caption: "United in love, blessed by family and elders."
     },
     {
-      url: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1000&q=80",
-      title: "Sacred Rings",
-      caption: "A timeless pledge of unconditional commitment and respect."
+      url: togetherWalkPhoto,
+      title: "Hand in Hand",
+      caption: "Walking into our beautiful forever together."
     },
     {
-      url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80",
-      title: "Blessed by Families",
-      caption: "When two families unite in harmony, love finds its true home."
+      url: closeRomancePhoto,
+      title: "Cherished Moments",
+      caption: "Every glance filled with the promise of a lifetime."
     },
     {
-      url: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80",
-      title: "Joyous Celebrations",
-      caption: "Laughter, happiness, and celebrations that will last a lifetime."
+      url: ringPhoto,
+      title: "The Sacred Rings",
+      caption: "A timeless circle of eternal love and devotion."
+    },
+    {
+      url: bouquetGivenPhoto,
+      title: "A Token of Love",
+      caption: "Every blossom celebrating our joy and togetherness."
+    },
+    {
+      url: brideFocusPhoto,
+      title: "Grace & Elegance",
+      caption: "Two lives, two hearts, joined in sacred harmony."
     }
   ],
 

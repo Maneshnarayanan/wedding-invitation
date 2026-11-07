@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX, Music } from 'lucide-react';
 
-export default function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
+export default function MusicPlayer({ isPlaying: externalPlaying, setIsPlaying: setExternalPlaying }) {
+  const [internalPlaying, setInternalPlaying] = useState(false);
+  const isPlaying = externalPlaying !== undefined ? externalPlaying : internalPlaying;
+  const setIsPlaying = setExternalPlaying || setInternalPlaying;
+
   const audioCtxRef = useRef(null);
   const timerRef = useRef(null);
 
@@ -82,6 +85,14 @@ export default function MusicPlayer() {
       setIsPlaying(true);
     }
   };
+
+  useEffect(() => {
+    if (isPlaying) {
+      startAmbientChords();
+    } else {
+      stopAmbientChords();
+    }
+  }, [isPlaying]);
 
   useEffect(() => {
     return () => {

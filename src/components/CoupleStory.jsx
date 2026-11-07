@@ -58,10 +58,22 @@ export default function CoupleStory() {
             <h3 className="couple-name">{weddingConfig.groom.fullName}</h3>
             <p className="couple-role">{weddingConfig.groom.role}</p>
             
-            <div style={{ margin: '1rem 0', padding: '0.85rem 1rem', background: 'var(--color-bg-glass-light)', borderRadius: '12px', border: '1px solid var(--color-border-subtle)' }}>
-              <p style={{ fontSize: '0.9rem', color: 'var(--color-gold-300)', fontWeight: 600 }}>Son of</p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{weddingConfig.groom.mother}</p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>&amp; {weddingConfig.groom.father}</p>
+            <div className="couple-family-box">
+              <div className="couple-family-row">
+                <span className="family-label">Son of</span>
+                <p className="family-value">{weddingConfig.groom.parents}</p>
+              </div>
+              {weddingConfig.groom.house && (
+                <div className="couple-family-row">
+                  <p className="family-sub-value">{weddingConfig.groom.house}</p>
+                </div>
+              )}
+              {weddingConfig.groom.nephewOf && (
+                <div className="couple-family-row nephew-row">
+                  <span className="family-sub-tag">N/o:</span>
+                  <p className="family-relation-value">{weddingConfig.groom.nephewOf}</p>
+                </div>
+              )}
             </div>
 
             <p className="couple-bio">"{weddingConfig.groom.bio}"</p>
@@ -90,10 +102,22 @@ export default function CoupleStory() {
             <h3 className="couple-name">{weddingConfig.bride.fullName}</h3>
             <p className="couple-role">{weddingConfig.bride.role}</p>
 
-            <div style={{ margin: '1rem 0', padding: '0.85rem 1rem', background: 'var(--color-bg-glass-light)', borderRadius: '12px', border: '1px solid var(--color-border-subtle)' }}>
-              <p style={{ fontSize: '0.9rem', color: 'var(--color-gold-300)', fontWeight: 600 }}>Daughter of</p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>{weddingConfig.bride.mother}</p>
-              <p style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)' }}>&amp; {weddingConfig.bride.father}</p>
+            <div className="couple-family-box">
+              <div className="couple-family-row">
+                <span className="family-label">Daughter of</span>
+                <p className="family-value">{weddingConfig.bride.parents}</p>
+              </div>
+              {weddingConfig.bride.house && (
+                <div className="couple-family-row">
+                  <p className="family-sub-value">{weddingConfig.bride.house}</p>
+                </div>
+              )}
+              {weddingConfig.bride.nephewOf && (
+                <div className="couple-family-row nephew-row">
+                  <span className="family-sub-tag">N/o:</span>
+                  <p className="family-relation-value">{weddingConfig.bride.nephewOf}</p>
+                </div>
+              )}
             </div>
 
             <p className="couple-bio">"{weddingConfig.bride.bio}"</p>
