@@ -1,42 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function OpeningCeremony({ onOpen }) {
   const [isOpening, setIsOpening] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
   const [progress, setProgress] = useState(0);
+  const chimePlayedRef = useRef(false);
 
-  // Trigger gentle auspicious sparkle sound using Web Audio API
-  const playChimeSound = () => {
+  // Trigger rich, crystal-clear auspicious sparkle chime sound
+  const playChimeSound = async () => {
+    if (chimePlayedRef.current) return;
+    chimePlayedRef.current = true;
+
     try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtxClass) return;
+      const ctx = new AudioCtxClass();
+      
       if (ctx.state === 'suspended') {
-        ctx.resume();
+        await ctx.resume();
       }
 
-      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // C5, E5, G5, C6, E6
-      notes.forEach((freq, idx) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+      // 7-note ascending celestial sparkle cascade (C5, E5, G5, C6, E6, G6, C7)
+      const baseNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+      const startTime = ctx.currentTime;
 
-        gain.gain.setValueAtTime(0.001, ctx.currentTime + idx * 0.08);
-        gain.gain.linearRampToValueAtTime(0.09, ctx.currentTime + idx * 0.08 + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + idx * 0.08 + 1.2);
+      baseNotes.forEach((freq, idx) => {
+        const noteStart = startTime + idx * 0.085;
 
-        osc.connect(gain);
-        gain.connect(ctx.destination);
+        // Primary clear chime tone
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(freq, noteStart);
 
-        osc.start(ctx.currentTime + idx * 0.08);
-        osc.stop(ctx.currentTime + idx * 0.08 + 1.3);
+        gain1.gain.setValueAtTime(0.0001, noteStart);
+        gain1.gain.linearRampToValueAtTime(0.35, noteStart + 0.025);
+        gain1.gain.exponentialRampToValueAtTime(0.0001, noteStart + 1.2);
+
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(noteStart);
+        osc1.stop(noteStart + 1.25);
+
+        // Secondary sparkle overtone for magical temple chime feel
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(freq * 2, noteStart);
+
+        gain2.gain.setValueAtTime(0.0001, noteStart);
+        gain2.gain.linearRampToValueAtTime(0.14, noteStart + 0.02);
+        gain2.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.85);
+
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(noteStart);
+        osc2.stop(noteStart + 0.9);
       });
     } catch (e) {
-      // Audio autoplay policy fallback
+      // Browser autoplay policy requires user gesture
+      chimePlayedRef.current = false; // Allow retry on first tap
     }
   };
 
@@ -87,10 +113,29 @@ export default function OpeningCeremony({ onOpen }) {
     }, 450);
   };
 
-  const handleOpenInvitation = () => {
+  const handleOpenInvitation = (fromUserGesture = false) => {
     if (isOpening) return;
     setIsOpening(true);
-    playChimeSound();
+
+    if (fromUserGesture) {
+      // Direct user tap: browser guarantees full audio playback!
+      playChimeSound();
+    } else {
+      // Auto-opened by timer: attempt chime
+      playChimeSound().catch(() => {});
+
+      // If browser blocked sound due to lack of prior tap, play on first screen interaction
+      const playOnFirstTouch = () => {
+        playChimeSound();
+        window.removeEventListener('pointerdown', playOnFirstTouch);
+        window.removeEventListener('touchstart', playOnFirstTouch);
+        window.removeEventListener('click', playOnFirstTouch);
+      };
+      window.addEventListener('pointerdown', playOnFirstTouch, { once: true, passive: true });
+      window.addEventListener('touchstart', playOnFirstTouch, { once: true, passive: true });
+      window.addEventListener('click', playOnFirstTouch, { once: true });
+    }
+
     triggerOpeningSparkles();
 
     if (onOpen) {
@@ -103,9 +148,9 @@ export default function OpeningCeremony({ onOpen }) {
     }, 850);
   };
 
-  // Automatic opening animation on link load
+  // Automatic opening animation fallback after 2.2 seconds
   useEffect(() => {
-    const duration = 1800; // 1.8 seconds auto-reveal
+    const duration = 2200;
     const intervalTime = 30;
     const step = (intervalTime / duration) * 100;
 
@@ -120,7 +165,7 @@ export default function OpeningCeremony({ onOpen }) {
     }, intervalTime);
 
     const autoOpenTimer = setTimeout(() => {
-      handleOpenInvitation();
+      handleOpenInvitation(false);
     }, duration);
 
     return () => {
@@ -134,7 +179,7 @@ export default function OpeningCeremony({ onOpen }) {
   return (
     <div
       className={`opening-ceremony-overlay ${isOpening ? 'fade-out' : ''}`}
-      onClick={handleOpenInvitation}
+      onClick={() => handleOpenInvitation(true)}
       role="dialog"
       aria-modal="true"
       aria-label="Wedding Invitation Envelope"
@@ -185,28 +230,28 @@ export default function OpeningCeremony({ onOpen }) {
           "With the prayers and blessings of our beloved parents and elders, we joyfully invite you to celebrate our wedding."
         </p>
 
-        {/* Automatic Opening Progress & Pulse */}
+        {/* Tap to Open with Sound Button */}
         <div className="opening-auto-indicator">
           <div className="opening-progress-track">
             <div className="opening-progress-bar" style={{ width: `${Math.min(progress, 100)}%` }} />
           </div>
-          <div className="opening-action-wrapper" style={{ marginTop: '0.8rem' }}>
+          <div className="opening-action-wrapper" style={{ marginTop: '0.85rem' }}>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                handleOpenInvitation();
+                handleOpenInvitation(true);
               }}
               className="btn-royal-open"
-              aria-label="Open the wedding invitation"
+              aria-label="Open wedding invitation with chime sound"
             >
               <Sparkles size={18} className="btn-sparkle-icon" />
-              <span className="font-malayalam">ക്ഷണക്കത്ത് തുറക്കുന്നു...</span>
-              <span className="btn-en-text">OPENING INVITATION...</span>
+              <span className="font-malayalam">ക്ഷണക്കത്ത് തുറക്കുക 🔔</span>
+              <span className="btn-en-text">TAP TO OPEN (WITH CHIME)</span>
               <Sparkles size={18} className="btn-sparkle-icon" />
             </button>
           </div>
-          <p style={{ fontSize: '0.75rem', color: 'var(--color-gold-400)', marginTop: '0.5rem', opacity: 0.85 }}>
-            (Tap anywhere to open instantly)
+          <p style={{ fontSize: '0.78rem', color: 'var(--color-gold-300)', marginTop: '0.55rem', opacity: 0.9 }}>
+            (Tap button or screen to play auspicious chime)
           </p>
         </div>
 
@@ -214,4 +259,3 @@ export default function OpeningCeremony({ onOpen }) {
     </div>
   );
 }
-

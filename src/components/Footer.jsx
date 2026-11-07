@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check, Share2, Heart } from 'lucide-react';
+import { Copy, Check, Heart } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function Footer() {
@@ -9,13 +9,6 @@ export default function Footer() {
     navigator.clipboard.writeText(weddingConfig.hashtag);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
-  };
-
-  const shareWhatsApp = () => {
-    const text = encodeURIComponent(
-      `✨ You're cordially invited to celebrate the Keralam Traditional Wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName} on ${weddingConfig.weddingDateFormatted} (Muhurtham: ${weddingConfig.muhurthamTime}) at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}! View the invitation here: ${window.location.href}`
-    );
-    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
 
   return (
@@ -39,7 +32,7 @@ export default function Footer() {
         </p>
 
         {/* Hashtag */}
-        <div>
+        <div style={{ marginBottom: '1.5rem' }}>
           <button
             onClick={copyHashtag}
             className="footer-hashtag"
@@ -49,17 +42,6 @@ export default function Footer() {
             {copied ? <Check size={16} /> : <Copy size={16} />}
             <span>{weddingConfig.hashtag}</span>
             {copied && <span style={{ fontSize: '0.75rem', color: '#10B981', marginLeft: '4px' }}>Copied!</span>}
-          </button>
-        </div>
-
-        {/* WhatsApp Share button */}
-        <div className="share-buttons">
-          <button
-            onClick={shareWhatsApp}
-            className="btn-whatsapp"
-            aria-label="Share Wedding Invitation on WhatsApp"
-          >
-            <Share2 size={18} /> Share Invitation on WhatsApp
           </button>
         </div>
 

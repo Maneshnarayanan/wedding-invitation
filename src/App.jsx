@@ -6,13 +6,12 @@ import CoupleStory from './components/CoupleStory';
 import EventsTimeline from './components/EventsTimeline';
 import VenueMap from './components/VenueMap';
 import PhotoGallery from './components/PhotoGallery';
-import MusicPlayer from './components/MusicPlayer';
 import Footer from './components/Footer';
 import OpeningCeremony from './components/OpeningCeremony';
+import MobileActionDock from './components/MobileActionDock';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme === 'warm-silk' ? 'warm-silk' : 'dark');
@@ -22,15 +21,10 @@ export default function App() {
     setTheme((prev) => (prev === 'dark' ? 'warm-silk' : 'dark'));
   };
 
-  const handleOpeningComplete = () => {
-    // Start auspicious music when invitation opens
-    setIsMusicPlaying(true);
-  };
-
   return (
     <div className="wedding-app">
       {/* Auspicious Opening Ceremony on Arrival */}
-      <OpeningCeremony onOpen={handleOpeningComplete} />
+      <OpeningCeremony />
 
       {/* Background Falling Petals & Shimmer */}
       <PetalsCanvas />
@@ -47,8 +41,8 @@ export default function App() {
         <PhotoGallery />
       </main>
 
-      {/* Ambient Music Player */}
-      <MusicPlayer isPlaying={isMusicPlaying} setIsPlaying={setIsMusicPlaying} />
+      {/* Floating Action Dock & Flower Blessings */}
+      <MobileActionDock />
 
       {/* Footer */}
       <Footer />
