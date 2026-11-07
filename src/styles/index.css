@@ -1,10 +1,10 @@
 /* ==========================================================================
-   KERALA TRADITIONAL WEDDING INVITATION - DESIGN SYSTEM
-   Theme: Kerala Kasavu Gold, Temple Maroon, Auspicious Ivory & Royal Emerald
+   KERALAM TRADITIONAL WEDDING INVITATION - DESIGN SYSTEM
+   Theme: Keralam Kasavu Gold, Temple Maroon, Auspicious Ivory & Royal Emerald
    ========================================================================== */
 
 :root {
-  /* Kerala Kasavu Palette */
+  /* Keralam Kasavu Palette */
   --color-gold-50: #FFFDF7;
   --color-gold-100: #FCF7E6;
   --color-gold-200: #F6ECC4;
@@ -15,7 +15,7 @@
   --color-gold-700: #8F6913;
   --color-gold-800: #6B4E0E;
   
-  /* Traditional Kerala Accent Tones */
+  /* Traditional Keralam Accent Tones */
   --color-temple-maroon: #681726;
   --color-temple-maroon-dark: #3E0C15;
   --color-kasavu-cream: #FCF9F2;
@@ -61,7 +61,7 @@
   --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Kerala Kasavu Silk Alternate Theme */
+/* Keralam Kasavu Silk Alternate Theme */
 [data-theme='warm-silk'] {
   --color-bg-base: #FBF9F3;
   --color-bg-surface: #F4EFE2;

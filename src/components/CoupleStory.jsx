@@ -79,7 +79,7 @@ export default function CoupleStory() {
             <p className="couple-bio">"{weddingConfig.groom.bio}"</p>
           </div>
 
-          {/* Center Nilavilakku (Traditional Kerala Lamp) Emblem */}
+          {/* Center Nilavilakku (Traditional Keralam Lamp) Emblem */}
           <div className="couple-center-emblem">
             <div className="emblem-ring" style={{ width: '76px', height: '76px', borderStyle: 'solid' }}>
               <span style={{ fontSize: '2.2rem' }}>🪔</span>

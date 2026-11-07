@@ -11,7 +11,6 @@ export default function Navbar({ theme, toggleTheme }) {
     { label: 'Venue (Poinachi)', href: '#venue' },
     { label: 'Our Story', href: '#story' },
     { label: 'Gallery', href: '#gallery' },
-    { label: 'Blessings', href: '#blessings' },
   ];
 
   return (

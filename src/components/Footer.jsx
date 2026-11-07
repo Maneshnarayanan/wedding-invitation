@@ -13,7 +13,7 @@ export default function Footer() {
 
   const shareWhatsApp = () => {
     const text = encodeURIComponent(
-      `✨ You're cordially invited to celebrate the Kerala Traditional Wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName} on ${weddingConfig.weddingDateFormatted} (Muhurtham: ${weddingConfig.muhurthamTime}) at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}! View the invitation here: ${window.location.href}`
+      `✨ You're cordially invited to celebrate the Keralam Traditional Wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName} on ${weddingConfig.weddingDateFormatted} (Muhurtham: ${weddingConfig.muhurthamTime}) at ${weddingConfig.venue.name}, ${weddingConfig.venue.city}! View the invitation here: ${window.location.href}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };

@@ -39,7 +39,7 @@ export default function Countdown() {
   const getGoogleCalendarUrl = () => {
     const title = encodeURIComponent(`Wedding: ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`);
     const details = encodeURIComponent(
-      `Join us in celebrating the Kerala traditional wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}!\n\nMuhurtham: ${weddingConfig.muhurthamTime}\nVenue: ${weddingConfig.venue.name}, ${weddingConfig.venue.city}\nGoogle Maps: ${weddingConfig.venue.googleMapsUrl}`
+      `Join us in celebrating the Keralam traditional wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}!\n\nMuhurtham: ${weddingConfig.muhurthamTime}\nVenue: ${weddingConfig.venue.name}, ${weddingConfig.venue.city}\nGoogle Maps: ${weddingConfig.venue.googleMapsUrl}`
     );
     const location = encodeURIComponent(`${weddingConfig.venue.name}, ${weddingConfig.venue.address}`);
     // Jan 3, 2027 11:00 AM to 15:30 PM IST (UTC 05:30Z to 10:00Z)

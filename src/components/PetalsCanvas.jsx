@@ -24,7 +24,7 @@ export default function PetalsCanvas() {
 
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // Auspicious Kerala Gold & Rose Petal Colors
+    // Auspicious Keralam Gold & Rose Petal Colors
     const colors = [
       'rgba(212, 175, 55, 0.45)',  // Kasavu Gold
       'rgba(243, 229, 171, 0.55)', // Light Gold Sparkle

@@ -6,7 +6,6 @@ import CoupleStory from './components/CoupleStory';
 import EventsTimeline from './components/EventsTimeline';
 import VenueMap from './components/VenueMap';
 import PhotoGallery from './components/PhotoGallery';
-import BlessingsWall from './components/BlessingsWall';
 import MusicPlayer from './components/MusicPlayer';
 import Footer from './components/Footer';
 import OpeningCeremony from './components/OpeningCeremony';
@@ -46,7 +45,6 @@ export default function App() {
         <EventsTimeline />
         <VenueMap />
         <PhotoGallery />
-        <BlessingsWall />
       </main>
 
       {/* Ambient Music Player */}

@@ -52,7 +52,7 @@ export default function OpeningCeremony({ onOpen }) {
       ticks: 200
     });
 
-    // 2. Auspicious Kerala flower shower (Rose petals & Jasmine flowers)
+    // 2. Auspicious Keralam flower shower (Rose petals & Jasmine flowers)
     setTimeout(() => {
       // Left shower
       confetti({

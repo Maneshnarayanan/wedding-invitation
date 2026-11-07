@@ -8,7 +8,7 @@ import closeRomancePhoto from '../assets/images_web/close_romance_bouquet.jpg';
 import bouquetGivenPhoto from '../assets/images_web/bouquet_given.jpg';
 import brideFocusPhoto from '../assets/images_web/bride_focus_portrait.jpg';
 
-// Kerala Traditional Wedding Configuration
+// Keralam Traditional Wedding Configuration
 export const weddingConfig = {
   groom: {
     name: "Manesh",
@@ -37,7 +37,7 @@ export const weddingConfig = {
   
   hashtag: "#ManeshWedsPooja",
   
-  invitationNote: "We, along with our families, warmly invite you with immense happiness to the auspicious Kerala traditional wedding ceremony of Manesh K and Pooja S. Your presence, prayers, and blessings will grace this special occasion.",
+  invitationNote: "We, along with our families, warmly invite you with immense happiness to the auspicious Keralam traditional wedding ceremony of Manesh K and Pooja S. Your presence, prayers, and blessings will grace this special occasion.",
   
   sacredSloka: {
     sanskrit: "माङ्गल्यं तन्तुनानेन मम जीवनहेतुना। कण्ठे बध्नामि सुभगे त्वं जीव शरदः शतम्॥",
@@ -57,7 +57,7 @@ export const weddingConfig = {
       date: "Sunday, January 3, 2027",
       time: "11:00 AM - 11:46 AM (Auspicious Lagna)",
       venue: "Raj Palace, Poinachi, Kasaragod",
-      dressCode: "Traditional Kerala Kasavu Mundu & Saree",
+      dressCode: "Traditional Keralam Kasavu Mundu & Saree",
       icon: "HeartHandshake",
       color: "gold"
     }
@@ -66,10 +66,10 @@ export const weddingConfig = {
   venue: {
     name: "Raj Palace",
     hall: "Raj Palace Auditorium",
-    city: "Poinachi, Kasaragod, Kerala",
-    address: "National Highway 66, Poinachi, Kasaragod, Kerala 671541",
+    city: "Poinachi, Kasaragod, Keralam",
+    address: "National Highway 66, Poinachi, Kasaragod, Keralam 671541",
     landmark: "Poinachi Junction, near NH 66",
-    mapQuery: "Raj Palace Auditorium Poinachi Kasaragod Kerala",
+    mapQuery: "Raj Palace Auditorium Poinachi Kasaragod Keralam",
     googleMapsUrl: "https://maps.google.com/?q=Raj+Palace+Auditorium+Poinachi+Kasaragod",
     phone: "+91 94470 00000 / +91 98460 00000",
     notes: "Spacious vehicle parking available inside the auditorium premises."
@@ -89,10 +89,10 @@ export const weddingConfig = {
       tag: "Connection"
     },
     {
-      year: "The Auspicious Nischayam",
-      title: "Ring Exchange & Promise",
-      description: "With traditional lamps lit and auspicious sweets shared, our engagement cemented the sacred promise to walk hand in hand.",
-      tag: "Engagement"
+      year: "Family Acceptance",
+      title: "Blessings & Accord",
+      description: "With heartfelt joy and mutual respect, both families joyfully accepted and confirmed this sacred alliance, stepping forward directly to the wedding day.",
+      tag: "Elders' Consent"
     },
     {
       year: "January 3, 2027",
