@@ -94,6 +94,21 @@ export default function MusicPlayer({ isPlaying: externalPlaying, setIsPlaying: 
     }
   }, [isPlaying]);
 
+  // Mobile audio policy unlock: resume audio context on first touch/tap if suspended
+  useEffect(() => {
+    const handleFirstTouch = () => {
+      if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+        audioCtxRef.current.resume();
+      }
+    };
+    window.addEventListener('touchstart', handleFirstTouch, { passive: true, once: true });
+    window.addEventListener('click', handleFirstTouch, { once: true });
+    return () => {
+      window.removeEventListener('touchstart', handleFirstTouch);
+      window.removeEventListener('click', handleFirstTouch);
+    };
+  }, []);
+
   useEffect(() => {
     return () => {
       stopAmbientChords();

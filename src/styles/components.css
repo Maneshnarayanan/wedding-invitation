@@ -1457,6 +1457,32 @@
   display: none;
 }
 
+.opening-auto-indicator {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.opening-progress-track {
+  width: 100%;
+  max-width: 280px;
+  height: 4px;
+  background: rgba(212, 175, 55, 0.2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.opening-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300), #ffffff);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+
 /* Mobile responsive opening card */
 @media (max-width: 640px) {
   .royal-envelope-card {

@@ -6,6 +6,7 @@ import { weddingConfig } from '../data/weddingConfig';
 export default function OpeningCeremony({ onOpen }) {
   const [isOpening, setIsOpening] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   // Trigger gentle auspicious sparkle sound using Web Audio API
   const playChimeSound = () => {
@@ -43,49 +44,47 @@ export default function OpeningCeremony({ onOpen }) {
   const triggerOpeningSparkles = () => {
     // 1. Center radiant gold starburst
     confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
+      particleCount: 110,
+      spread: 75,
+      origin: { y: 0.55 },
       colors: ['#D4AF37', '#FFF0C2', '#FFE58F', '#B88E1F', '#FFFFFF'],
       startVelocity: 45,
       scalar: 1.2,
-      ticks: 200
+      ticks: 220
     });
 
     // 2. Auspicious Keralam flower shower (Rose petals & Jasmine flowers)
     setTimeout(() => {
-      // Left shower
       confetti({
-        particleCount: 60,
+        particleCount: 65,
         angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.7 },
+        spread: 60,
+        origin: { x: 0, y: 0.65 },
         colors: ['#D4AF37', '#F43F5E', '#FFFFFF', '#E11D48', '#FCF7E6'],
-        scalar: 1.1
+        scalar: 1.15
       });
-      // Right shower
       confetti({
-        particleCount: 60,
+        particleCount: 65,
         angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.7 },
+        spread: 60,
+        origin: { x: 1, y: 0.65 },
         colors: ['#D4AF37', '#F43F5E', '#FFFFFF', '#E11D48', '#FCF7E6'],
-        scalar: 1.1
+        scalar: 1.15
       });
-    }, 250);
+    }, 200);
 
     // 3. Falling starlight shimmer
     setTimeout(() => {
       confetti({
-        particleCount: 80,
-        spread: 120,
-        origin: { y: 0.4 },
+        particleCount: 90,
+        spread: 130,
+        origin: { y: 0.35 },
         colors: ['#D4AF37', '#FFF6D5', '#FFE066', '#FFD700'],
-        gravity: 0.8,
-        scalar: 0.9,
-        ticks: 250
+        gravity: 0.75,
+        scalar: 0.95,
+        ticks: 260
       });
-    }, 500);
+    }, 450);
   };
 
   const handleOpenInvitation = () => {
@@ -101,17 +100,45 @@ export default function OpeningCeremony({ onOpen }) {
     // Smooth curtain lift
     setTimeout(() => {
       setIsClosed(true);
-    }, 900);
+    }, 850);
   };
+
+  // Automatic opening animation on link load
+  useEffect(() => {
+    const duration = 1800; // 1.8 seconds auto-reveal
+    const intervalTime = 30;
+    const step = (intervalTime / duration) * 100;
+
+    const progressTimer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressTimer);
+          return 100;
+        }
+        return prev + step;
+      });
+    }, intervalTime);
+
+    const autoOpenTimer = setTimeout(() => {
+      handleOpenInvitation();
+    }, duration);
+
+    return () => {
+      clearInterval(progressTimer);
+      clearTimeout(autoOpenTimer);
+    };
+  }, []);
 
   if (isClosed) return null;
 
   return (
     <div
       className={`opening-ceremony-overlay ${isOpening ? 'fade-out' : ''}`}
+      onClick={handleOpenInvitation}
       role="dialog"
       aria-modal="true"
       aria-label="Wedding Invitation Envelope"
+      style={{ cursor: 'pointer' }}
     >
       <div className={`royal-envelope-card glass-card ${isOpening ? 'card-unfold' : ''}`}>
         
@@ -158,18 +185,29 @@ export default function OpeningCeremony({ onOpen }) {
           "With the prayers and blessings of our beloved parents and elders, we joyfully invite you to celebrate our wedding."
         </p>
 
-        {/* Royal Pulsating "Open Invitation" Button */}
-        <div className="opening-action-wrapper">
-          <button
-            onClick={handleOpenInvitation}
-            className="btn-royal-open"
-            aria-label="Open the wedding invitation"
-          >
-            <Sparkles size={18} className="btn-sparkle-icon" />
-            <span className="font-malayalam">ക്ഷണക്കത്ത് തുറക്കുക</span>
-            <span className="btn-en-text">OPEN INVITATION</span>
-            <Sparkles size={18} className="btn-sparkle-icon" />
-          </button>
+        {/* Automatic Opening Progress & Pulse */}
+        <div className="opening-auto-indicator">
+          <div className="opening-progress-track">
+            <div className="opening-progress-bar" style={{ width: `${Math.min(progress, 100)}%` }} />
+          </div>
+          <div className="opening-action-wrapper" style={{ marginTop: '0.8rem' }}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenInvitation();
+              }}
+              className="btn-royal-open"
+              aria-label="Open the wedding invitation"
+            >
+              <Sparkles size={18} className="btn-sparkle-icon" />
+              <span className="font-malayalam">ക്ഷണക്കത്ത് തുറക്കുന്നു...</span>
+              <span className="btn-en-text">OPENING INVITATION...</span>
+              <Sparkles size={18} className="btn-sparkle-icon" />
+            </button>
+          </div>
+          <p style={{ fontSize: '0.75rem', color: 'var(--color-gold-400)', marginTop: '0.5rem', opacity: 0.85 }}>
+            (Tap anywhere to open instantly)
+          </p>
         </div>
 
       </div>
