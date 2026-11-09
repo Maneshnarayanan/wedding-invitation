@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Navigation, Phone, Car, Compass } from 'lucide-react';
+import { MapPin, Navigation, Car, Compass } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function VenueMap() {
@@ -79,23 +79,6 @@ export default function VenueMap() {
               loading="lazy"
               allowFullScreen
             />
-          </div>
-        </div>
-
-        {/* Contact Persons Banner */}
-        <div style={{ marginTop: '2rem' }}>
-          <div className="glass-card" style={{ padding: '1.5rem 2rem' }}>
-            <h4 style={{ fontFamily: 'var(--font-serif-royal)', color: 'var(--color-gold-300)', marginBottom: '1rem', fontSize: '1.1rem' }}>
-              Family Contact & Hospitality (Poinachi, Kasaragod)
-            </h4>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-              {weddingConfig.contactPersons.map((contact) => (
-                <div key={contact.name} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.92rem' }}>
-                  <Phone size={15} className="gold-accent" />
-                  <span><strong>{contact.name}:</strong> <a href={`tel:${contact.phone.replace(/[^0-9+]/g, '')}`} style={{ color: 'var(--color-gold-300)', textDecoration: 'none' }}>{contact.phone}</a></span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 

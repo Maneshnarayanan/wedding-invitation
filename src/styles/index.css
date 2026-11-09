@@ -193,20 +193,25 @@ body {
   animation: pulse-glow 3s infinite ease-in-out;
 }
 
-/* Traditional Kasavu Border Card */
+/* Traditional Kasavu Border Card with 3D Spatial Depth */
 .glass-card {
   background: var(--gradient-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-border-gold);
   border-radius: 20px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.16),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.45),
+    0 16px 38px -8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(212, 175, 55, 0.14);
+  transform-style: preserve-3d;
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
 }
 
-/* Kasavu Golden Zari Header Ribbon */
+/* Kasavu Golden Zari Header Ribbon with Subtle Shimmer */
 .glass-card::before {
   content: '';
   position: absolute;
@@ -215,15 +220,21 @@ body {
   right: 0;
   height: 4px;
   background: var(--kasavu-border-pattern);
+  background-size: 200% 100%;
+  animation: kasavu-zari-shimmer 6s linear infinite;
+  box-shadow: 0 1px 6px rgba(212, 175, 55, 0.4);
 }
 
 .glass-card:hover {
   border-color: rgba(212, 175, 55, 0.7);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card), var(--shadow-gold-sm);
+  transform: translateY(-5px) perspective(1000px) translateZ(8px);
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.28),
+    0 24px 50px -10px rgba(0, 0, 0, 0.88),
+    0 0 30px rgba(212, 175, 55, 0.28);
 }
 
-/* Gold Buttons */
+/* 3D Gold Buttons */
 .btn-gold-primary {
   background: var(--gradient-gold);
   color: #1A1405;
@@ -239,15 +250,30 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  box-shadow: var(--shadow-gold-sm);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -2px 0 rgba(140, 95, 10, 0.65),
+    0 6px 20px rgba(212, 175, 55, 0.42),
+    0 3px 6px rgba(0, 0, 0, 0.4);
+  transform: perspective(600px) translateZ(0);
   transition: var(--transition-smooth);
   text-decoration: none;
 }
 
 .btn-gold-primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: var(--shadow-gold-lg);
+  transform: perspective(600px) translateY(-3px) translateZ(6px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 10px 28px rgba(212, 175, 55, 0.55),
+    0 4px 10px rgba(0, 0, 0, 0.45);
   filter: brightness(1.05);
+}
+
+.btn-gold-primary:active {
+  transform: perspective(600px) translateY(2px) translateZ(0);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(212, 175, 55, 0.3);
 }
 
 .btn-gold-secondary {
@@ -265,21 +291,99 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(212, 175, 55, 0.12);
+  transform: perspective(600px) translateZ(0);
   transition: var(--transition-smooth);
   text-decoration: none;
 }
 
 .btn-gold-secondary:hover {
-  background: rgba(212, 175, 55, 0.18);
+  background: rgba(212, 175, 55, 0.2);
   color: #FFF;
   border-color: var(--color-gold-400);
-  transform: translateY(-2px);
+  transform: perspective(600px) translateY(-3px) translateZ(4px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 10px 24px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(212, 175, 55, 0.25);
 }
 
-/* Animations */
+.btn-gold-secondary:active {
+  transform: perspective(600px) translateY(2px) translateZ(0);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations & Sacred Keralam Gold Glows */
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.75; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.9)); }
+  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.9)); }
+}
+
+/* Living Nilavilakku Temple Flame Flicker */
+@keyframes nilavilakku-flicker {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 8px rgba(255, 185, 45, 0.85)) drop-shadow(0 0 18px rgba(212, 175, 55, 0.55));
+  }
+  25% {
+    transform: scale(1.08) translateY(-1px) rotate(-1deg);
+    filter: drop-shadow(0 0 14px rgba(255, 215, 80, 0.98)) drop-shadow(0 0 26px rgba(212, 175, 55, 0.75));
+  }
+  50% {
+    transform: scale(0.96) translateY(0.5px) rotate(1deg);
+    filter: drop-shadow(0 0 7px rgba(245, 160, 30, 0.8)) drop-shadow(0 0 15px rgba(212, 175, 55, 0.45));
+  }
+  75% {
+    transform: scale(1.04) translateY(-0.5px);
+    filter: drop-shadow(0 0 12px rgba(255, 195, 60, 0.92)) drop-shadow(0 0 22px rgba(212, 175, 55, 0.65));
+  }
+}
+
+/* Metallic Gold Sheen Ray Sweep */
+@keyframes gold-sheen-sweep {
+  0% {
+    transform: translateX(-160%) rotate(25deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  38% {
+    transform: translateX(180%) rotate(25deg);
+    opacity: 0.9;
+  }
+  42%, 100% {
+    transform: translateX(200%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* Kasavu Zari Golden Thread Shimmer */
+@keyframes kasavu-zari-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ambient Sacred Halo Breathing */
+@keyframes ambient-glow-breathe {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
 }
 
 @keyframes float-slow {

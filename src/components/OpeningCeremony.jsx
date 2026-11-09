@@ -6,7 +6,6 @@ import { weddingConfig } from '../data/weddingConfig';
 export default function OpeningCeremony({ onOpen }) {
   const [isOpening, setIsOpening] = useState(false);
   const [isClosed, setIsClosed] = useState(false);
-  const [progress, setProgress] = useState(0);
   const chimePlayedRef = useRef(false);
 
   // Trigger rich, crystal-clear auspicious sparkle chime sound
@@ -61,8 +60,7 @@ export default function OpeningCeremony({ onOpen }) {
         osc2.stop(noteStart + 0.9);
       });
     } catch (e) {
-      // Browser autoplay policy requires user gesture
-      chimePlayedRef.current = false; // Allow retry on first tap
+      // Audio autoplay gracefully handled if restricted by browser
     }
   };
 
@@ -71,46 +69,46 @@ export default function OpeningCeremony({ onOpen }) {
     // 1. Center radiant gold starburst
     confetti({
       particleCount: 110,
-      spread: 75,
-      origin: { y: 0.55 },
+      spread: 80,
+      origin: { y: 0.5 },
       colors: ['#D4AF37', '#FFF0C2', '#FFE58F', '#B88E1F', '#FFFFFF'],
-      startVelocity: 45,
+      startVelocity: 50,
       scalar: 1.2,
-      ticks: 220
+      ticks: 230
     });
 
     // 2. Auspicious Keralam flower shower (Rose petals & Jasmine flowers)
     setTimeout(() => {
       confetti({
-        particleCount: 65,
+        particleCount: 70,
         angle: 60,
-        spread: 60,
-        origin: { x: 0, y: 0.65 },
+        spread: 65,
+        origin: { x: 0, y: 0.6 },
         colors: ['#D4AF37', '#F43F5E', '#FFFFFF', '#E11D48', '#FCF7E6'],
         scalar: 1.15
       });
       confetti({
-        particleCount: 65,
+        particleCount: 70,
         angle: 120,
-        spread: 60,
-        origin: { x: 1, y: 0.65 },
+        spread: 65,
+        origin: { x: 1, y: 0.6 },
         colors: ['#D4AF37', '#F43F5E', '#FFFFFF', '#E11D48', '#FCF7E6'],
         scalar: 1.15
       });
-    }, 200);
+    }, 180);
 
     // 3. Falling starlight shimmer
     setTimeout(() => {
       confetti({
         particleCount: 90,
-        spread: 130,
-        origin: { y: 0.35 },
+        spread: 140,
+        origin: { y: 0.3 },
         colors: ['#D4AF37', '#FFF6D5', '#FFE066', '#FFD700'],
         gravity: 0.75,
         scalar: 0.95,
         ticks: 260
       });
-    }, 450);
+    }, 400);
   };
 
   const handleOpenInvitation = (fromUserGesture = false) => {
@@ -118,22 +116,9 @@ export default function OpeningCeremony({ onOpen }) {
     setIsOpening(true);
 
     if (fromUserGesture) {
-      // Direct user tap: browser guarantees full audio playback!
       playChimeSound();
     } else {
-      // Auto-opened by timer: attempt chime
       playChimeSound().catch(() => {});
-
-      // If browser blocked sound due to lack of prior tap, play on first screen interaction
-      const playOnFirstTouch = () => {
-        playChimeSound();
-        window.removeEventListener('pointerdown', playOnFirstTouch);
-        window.removeEventListener('touchstart', playOnFirstTouch);
-        window.removeEventListener('click', playOnFirstTouch);
-      };
-      window.addEventListener('pointerdown', playOnFirstTouch, { once: true, passive: true });
-      window.addEventListener('touchstart', playOnFirstTouch, { once: true, passive: true });
-      window.addEventListener('click', playOnFirstTouch, { once: true });
     }
 
     triggerOpeningSparkles();
@@ -142,34 +127,19 @@ export default function OpeningCeremony({ onOpen }) {
       onOpen();
     }
 
-    // Smooth curtain lift
+    // After 3D doors swing open, fade out overlay and unmount
     setTimeout(() => {
       setIsClosed(true);
-    }, 850);
+    }, 1100);
   };
 
-  // Automatic opening animation fallback after 2.2 seconds
+  // Automatically open the doors after a brief cinematic pause to register the grand entrance
   useEffect(() => {
-    const duration = 2200;
-    const intervalTime = 30;
-    const step = (intervalTime / duration) * 100;
-
-    const progressTimer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(progressTimer);
-          return 100;
-        }
-        return prev + step;
-      });
-    }, intervalTime);
-
     const autoOpenTimer = setTimeout(() => {
       handleOpenInvitation(false);
-    }, duration);
+    }, 900);
 
     return () => {
-      clearInterval(progressTimer);
       clearTimeout(autoOpenTimer);
     };
   }, []);
@@ -178,84 +148,132 @@ export default function OpeningCeremony({ onOpen }) {
 
   return (
     <div
-      className={`opening-ceremony-overlay ${isOpening ? 'fade-out' : ''}`}
+      className={`royal-doors-overlay ${isOpening ? 'doors-opened' : ''}`}
       onClick={() => handleOpenInvitation(true)}
       role="dialog"
       aria-modal="true"
-      aria-label="Wedding Invitation Envelope"
+      aria-label="Royal Palace Wedding Doors"
       style={{ cursor: 'pointer' }}
     >
-      <div className={`royal-envelope-card glass-card ${isOpening ? 'card-unfold' : ''}`}>
-        
-        {/* Decorative Auspicious Top Header */}
-        <div className="opening-top-invocation">
-          <p className="font-malayalam gold-accent opening-sloka-title">
-            ॥ ശ്രീ ഗുരുഭ്യോ നമഃ • ശുഭ വിവാഹം ॥
-          </p>
-          <div className="opening-divider-line">
-            <span className="line" />
-            <Sparkles size={16} className="gold-accent" />
-            <span className="line" />
-          </div>
-        </div>
+      {/* ==============================================================
+          LEFT DOOR PANEL (Swings Open to the Left)
+          ============================================================== */}
+      <div className="royal-door-panel door-left">
+        <div className="door-panel-texture">
+          
+          {/* Kasavu Gold Border Trims */}
+          <div className="door-kasavu-trim trim-top" />
+          <div className="door-kasavu-trim trim-bottom" />
+          <div className="door-inner-seam" />
 
-        {/* Sacred Glowing Lamp Emblem */}
-        <div className="opening-lamp-wrapper">
-          <div className="opening-lamp-halo">
-            <span className="opening-lamp-emoji">🪔</span>
+          {/* Carved Palace Arch Inset */}
+          <div className="door-arch-inset">
+            <div className="door-invocation">
+              <span className="font-malayalam door-sloka">॥ ശ്രീ ഗുരുഭ്യോ നമഃ ॥</span>
+              <span className="door-sub-motif">❦</span>
+            </div>
+
+            {/* Embossed Royal Monogram */}
+            <div className="door-monogram-ring">
+              <span className="door-monogram font-royal">M</span>
+              <span className="door-monogram-role font-malayalam">വരൻ</span>
+            </div>
+
+            <div className="door-filigree-bottom">
+              <span className="filigree-line" />
+              <span className="filigree-symbol">✤</span>
+              <span className="filigree-line" />
+            </div>
           </div>
-          <span className="opening-invitation-sub">WEDDING INVITATION</span>
+
+          {/* Traditional Brass Door Knocker Handle */}
+          <div className="door-handle handle-left">
+            <div className="handle-plate">
+              <div className="handle-ring" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ==============================================================
+          RIGHT DOOR PANEL (Swings Open to the Right)
+          ============================================================== */}
+      <div className="royal-door-panel door-right">
+        <div className="door-panel-texture">
+          
+          {/* Kasavu Gold Border Trims */}
+          <div className="door-kasavu-trim trim-top" />
+          <div className="door-kasavu-trim trim-bottom" />
+          <div className="door-inner-seam" />
+
+          {/* Carved Palace Arch Inset */}
+          <div className="door-arch-inset">
+            <div className="door-invocation">
+              <span className="font-malayalam door-sloka">॥ ശുഭ വിവാഹം ॥</span>
+              <span className="door-sub-motif">❦</span>
+            </div>
+
+            {/* Embossed Royal Monogram */}
+            <div className="door-monogram-ring">
+              <span className="door-monogram font-royal">P</span>
+              <span className="door-monogram-role font-malayalam">വധു</span>
+            </div>
+
+            <div className="door-filigree-bottom">
+              <span className="filigree-line" />
+              <span className="filigree-symbol">✤</span>
+              <span className="filigree-line" />
+            </div>
+          </div>
+
+          {/* Traditional Brass Door Knocker Handle */}
+          <div className="door-handle handle-right">
+            <div className="handle-plate">
+              <div className="handle-ring" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* ==============================================================
+          CENTER ROYAL MEDALLION (The Auspicious Gate Lock / Seal)
+          ============================================================== */}
+      <div className="royal-center-medallion glass-card">
+        
+        {/* Glowing Nilavilakku Halo */}
+        <div className="medallion-lamp-wrapper">
+          <div className="medallion-lamp-halo">
+            <span className="medallion-lamp-icon">🪔</span>
+          </div>
+          <span className="medallion-tag">WEDDING INVITATION</span>
         </div>
 
         {/* Couple Names */}
-        <div className="opening-couple-names">
-          <h1 className="opening-name-text text-gold-gradient font-royal">
-            {weddingConfig.groom.fullName}
-          </h1>
-          <span className="opening-ampersand font-script">&</span>
-          <h1 className="opening-name-text text-gold-gradient font-royal">
-            {weddingConfig.bride.fullName}
-          </h1>
+        <div className="medallion-names">
+          <h2 className="medallion-name font-royal text-gold-gradient">{weddingConfig.groom.name}</h2>
+          <span className="medallion-ampersand font-script">&</span>
+          <h2 className="medallion-name font-royal text-gold-gradient">{weddingConfig.bride.name}</h2>
         </div>
 
-        {/* Date & Location Pill */}
-        <div className="opening-date-pill">
+        {/* Auspicious Date */}
+        <div className="medallion-date-pill">
           <span>{weddingConfig.weddingDateFormatted}</span>
-          <span className="pill-dot">•</span>
-          <span>{weddingConfig.venue.name}, {weddingConfig.venue.city}</span>
         </div>
 
-        {/* Auspicious Note */}
-        <p className="opening-note-text font-editorial">
-          "With the prayers and blessings of our beloved parents and elders, we joyfully invite you to celebrate our wedding."
-        </p>
-
-        {/* Tap to Open with Sound Button */}
-        <div className="opening-auto-indicator">
-          <div className="opening-progress-track">
-            <div className="opening-progress-bar" style={{ width: `${Math.min(progress, 100)}%` }} />
+        {/* Auspicious Blessing Seal */}
+        <div className="medallion-blessing-seal">
+          <div className="medallion-divider">
+            <span className="divider-line" />
+            <Sparkles size={14} className="gold-accent" />
+            <span className="divider-line" />
           </div>
-          <div className="opening-action-wrapper" style={{ marginTop: '0.85rem' }}>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleOpenInvitation(true);
-              }}
-              className="btn-royal-open"
-              aria-label="Open wedding invitation with chime sound"
-            >
-              <Sparkles size={18} className="btn-sparkle-icon" />
-              <span className="font-malayalam">ക്ഷണക്കത്ത് തുറക്കുക 🔔</span>
-              <span className="btn-en-text">TAP TO OPEN (WITH CHIME)</span>
-              <Sparkles size={18} className="btn-sparkle-icon" />
-            </button>
-          </div>
-          <p style={{ fontSize: '0.78rem', color: 'var(--color-gold-300)', marginTop: '0.55rem', opacity: 0.9 }}>
-            (Tap button or screen to play auspicious chime)
-          </p>
+          <span className="font-malayalam medallion-blessing-text">॥ ശുഭ വിവാഹം • മംഗളം ഭവതു ॥</span>
         </div>
 
       </div>
+
     </div>
   );
 }

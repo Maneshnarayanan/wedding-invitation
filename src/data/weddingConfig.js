@@ -31,7 +31,7 @@ export const weddingConfig = {
   weddingDate: "2027-01-03T11:00:00",
   weddingDateFormatted: "Sunday, January 3, 2027",
   muhurthamTime: "11:00 AM - 11:46 AM",
-  malayalamDate: "1192 ധനു 19, ഞായറാഴ്ച (Sunday, Dhanu 19)",
+  malayalamDate: "1202 ധനു 19, ഞായറാഴ്ച (Dhanu 19)",
   
   hashtag: "#ManeshWedsPooja",
   
@@ -131,10 +131,5 @@ export const weddingConfig = {
       title: "Grace & Elegance",
       caption: "Two lives, two hearts, joined in sacred harmony."
     }
-  ],
-
-  contactPersons: [
-    { name: "Sri. Narayanan T (Groom's Father)", phone: "+91 94470 00000" },
-    { name: "Family Coordinator (Poinachi)", phone: "+91 98460 00000" }
   ]
 };
