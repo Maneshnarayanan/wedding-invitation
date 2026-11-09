@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function CoupleStory() {
@@ -42,115 +42,93 @@ export default function CoupleStory() {
           </div>
         </div>
 
-        {/* Couple Profiles Grid */}
-        <div className="couple-grid">
+        {/* --- UNIFIED ROYAL COUPLE MASTER CARD --- */}
+        <div className="couple-master-card glass-card reveal-on-scroll">
           
-          {/* Groom Card */}
-          <div className="couple-card glass-card reveal-on-scroll">
-            
-            {/* Role Header Pill */}
-            <div className="couple-role-pill groom-pill">
-              <span className="role-ml font-malayalam">വരൻ</span>
-              <span className="role-dot">•</span>
-              <span className="role-en">THE GROOM</span>
+          {/* Top Royal Temple Arch Portrait of Couple Together */}
+          <div className="couple-joint-photo-wrapper">
+            <div className="couple-joint-arch-frame">
+              <img
+                src={weddingConfig.couplePhoto}
+                alt={`${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`}
+                className="couple-joint-photo"
+                loading="lazy"
+              />
             </div>
 
-            {/* Regal Temple Arch Frame Photo */}
-            <div className="couple-arch-wrapper">
-              <div className="couple-arch-frame">
-                <img
-                  src={weddingConfig.groom.photo}
-                  alt={weddingConfig.groom.fullName}
-                  className="couple-arch-photo"
-                  loading="lazy"
-                />
-              </div>
+            {/* Glowing Nilavilakku Emblem */}
+            <div className="joint-lamp-badge">
+              <span className="joint-lamp-icon">🪔</span>
             </div>
-
-            <h3 className="couple-name text-gold-gradient font-royal">{weddingConfig.groom.fullName}</h3>
-            
-            {/* Structured Auspicious Family Details Card */}
-            <div className="couple-family-card">
-              <div className="family-item">
-                <span className="family-item-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
-                <p className="family-item-name">{weddingConfig.groom.parents}</p>
-              </div>
-
-              {weddingConfig.groom.house && (
-                <div className="family-item">
-                  <span className="family-item-label font-malayalam">തറവാട് • Ancestral Home</span>
-                  <p className="family-item-name">{weddingConfig.groom.house}</p>
-                </div>
-              )}
-
-              {weddingConfig.groom.nephewOf && (
-                <div className="family-item nephew-item">
-                  <span className="family-item-label font-malayalam">അമ്മാവൻ • Uncle Lineage (N/o)</span>
-                  <p className="family-item-name">{weddingConfig.groom.nephewOf}</p>
-                </div>
-              )}
-            </div>
-
-            <p className="couple-bio">"{weddingConfig.groom.bio}"</p>
           </div>
 
-          {/* Center Nilavilakku (Traditional Keralam Lamp) Emblem */}
-          <div className="couple-center-emblem reveal-on-scroll">
-            <div className="emblem-halo">
-              <span className="emblem-lamp-icon">🪔</span>
-            </div>
-            <span className="emblem-script font-script">weds</span>
-            <span className="emblem-tag font-malayalam">വിവാഹം</span>
+          {/* Joint Couple Names & Cursive "weds" */}
+          <div className="couple-joint-names-box">
+            <h3 className="joint-name font-royal text-gold-gradient">{weddingConfig.groom.fullName}</h3>
+            <span className="joint-weds font-script">weds</span>
+            <h3 className="joint-name font-royal text-gold-gradient">{weddingConfig.bride.fullName}</h3>
           </div>
 
-          {/* Bride Card */}
-          <div className="couple-card glass-card reveal-on-scroll">
+          <p className="joint-blessing-quote font-editorial">
+            "{weddingConfig.loveQuote}"
+          </p>
+
+          <div className="joint-card-divider">
+            <span className="divider-line" />
+            <span className="divider-symbol">❦</span>
+            <span className="divider-line" />
+          </div>
+
+          {/* Dual Lineage Columns: Groom (Left) & Bride (Right) */}
+          <div className="couple-lineage-grid">
             
-            {/* Role Header Pill */}
-            <div className="couple-role-pill bride-pill">
-              <span className="role-ml font-malayalam">വധു</span>
-              <span className="role-dot">•</span>
-              <span className="role-en">THE BRIDE</span>
-            </div>
-
-            {/* Regal Temple Arch Frame Photo */}
-            <div className="couple-arch-wrapper">
-              <div className="couple-arch-frame">
-                <img
-                  src={weddingConfig.bride.photo}
-                  alt={weddingConfig.bride.fullName}
-                  className="couple-arch-photo"
-                  loading="lazy"
-                />
+            {/* --- Groom Details Column --- */}
+            <div className="lineage-column groom-column">
+              <div className="lineage-role-pill groom-pill">
+                <span className="role-ml font-malayalam">വരൻ</span>
+                <span className="role-dot">•</span>
+                <span className="role-en">THE GROOM</span>
               </div>
-            </div>
+              <h4 className="lineage-person-name font-royal">{weddingConfig.groom.fullName}</h4>
 
-            <h3 className="couple-name text-gold-gradient font-royal">{weddingConfig.bride.fullName}</h3>
-
-            {/* Structured Auspicious Family Details Card */}
-            <div className="couple-family-card">
-              <div className="family-item">
-                <span className="family-item-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
-                <p className="family-item-name">{weddingConfig.bride.parents}</p>
+              <div className="lineage-details-card">
+                <div className="lineage-item">
+                  <span className="lineage-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
+                  <p className="lineage-value">{weddingConfig.groom.parents}</p>
+                </div>
               </div>
 
-              {weddingConfig.bride.house && (
-                <div className="family-item">
-                  <span className="family-item-label font-malayalam">തറവാട് • Ancestral Home</span>
-                  <p className="family-item-name">{weddingConfig.bride.house}</p>
-                </div>
-              )}
-
-              {weddingConfig.bride.nephewOf && (
-                <div className="family-item nephew-item">
-                  <span className="family-item-label font-malayalam">അമ്മാവൻ • Uncle Lineage (N/o)</span>
-                  <p className="family-item-name">{weddingConfig.bride.nephewOf}</p>
-                </div>
-              )}
+              <p className="lineage-bio">"{weddingConfig.groom.bio}"</p>
             </div>
 
-            <p className="couple-bio">"{weddingConfig.bride.bio}"</p>
+            {/* Vertical Center Divider on Desktop */}
+            <div className="lineage-center-divider">
+              <span className="v-line" />
+              <div className="v-symbol">🪔</div>
+              <span className="v-line" />
+            </div>
+
+            {/* --- Bride Details Column --- */}
+            <div className="lineage-column bride-column">
+              <div className="lineage-role-pill bride-pill">
+                <span className="role-ml font-malayalam">വധു</span>
+                <span className="role-dot">•</span>
+                <span className="role-en">THE BRIDE</span>
+              </div>
+              <h4 className="lineage-person-name font-royal">{weddingConfig.bride.fullName}</h4>
+
+              <div className="lineage-details-card">
+                <div className="lineage-item">
+                  <span className="lineage-label font-malayalam">മാതാപിതാക്കൾ • Parents</span>
+                  <p className="lineage-value">{weddingConfig.bride.parents}</p>
+                </div>
+              </div>
+
+              <p className="lineage-bio">"{weddingConfig.bride.bio}"</p>
+            </div>
+
           </div>
+
         </div>
 
         {/* --- OUR STORY SECTION --- */}

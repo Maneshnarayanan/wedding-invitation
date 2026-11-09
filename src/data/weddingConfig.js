@@ -1,4 +1,5 @@
 // Real Couple Photos
+import coupleTogetherPhoto from '../assets/images_web/profilepic_together.jpg';
 import groomPhoto from '../assets/images_web/groom_profile.jpg';
 import bridePhoto from '../assets/images_web/bride_profile.jpg';
 import ringPhoto from '../assets/images_web/ring_focused.jpg';
@@ -10,12 +11,11 @@ import brideFocusPhoto from '../assets/images_web/bride_focus_portrait.jpg';
 
 // Keralam Traditional Wedding Configuration
 export const weddingConfig = {
+  couplePhoto: coupleTogetherPhoto,
   groom: {
     name: "Manesh",
     fullName: "Manesh K",
     parents: "Narayanan T & Omana Narayanan",
-    house: "Vadakekara House, Thokkanam",
-    nephewOf: "CH Manikandan Pakkam",
     role: "The Groom",
     bio: "Blessed by the love of family and elders, eagerly looking forward to starting an auspicious new chapter with Pooja.",
     photo: groomPhoto
@@ -24,8 +24,6 @@ export const weddingConfig = {
     name: "Pooja",
     fullName: "Pooja S",
     parents: "(Late) Sheena Poojary & Pushpalatha",
-    house: "Thalipadpu, Kasaragod",
-    nephewOf: "Late Babu Poojary, Karandakkad",
     role: "The Bride",
     bio: "Carrying cherished blessings from her loving family and ancestors, stepping into a lifetime of togetherness with Manesh.",
     photo: bridePhoto
