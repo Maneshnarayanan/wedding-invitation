@@ -31,7 +31,7 @@ export const weddingConfig = {
   weddingDate: "2027-01-03T11:00:00",
   weddingDateFormatted: "Sunday, January 3, 2027",
   muhurthamTime: "11:00 AM - 11:46 AM",
-  malayalamDate: "1202 ധനു 19, ഞായറാഴ്ച (Dhanu 19)",
+  malayalamDate: "1202 ധനു 18, ഞായറാഴ്ച (Dhanu 18)",
   
   hashtag: "#ManeshWedsPooja",
   
