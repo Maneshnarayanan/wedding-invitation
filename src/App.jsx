@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import PetalsCanvas from './components/PetalsCanvas';
+import BackgroundSparkles from './components/BackgroundSparkles';
 import Hero from './components/Hero';
 import CoupleStory from './components/CoupleStory';
 import EventsTimeline from './components/EventsTimeline';
-import VenueMap from './components/VenueMap';
 import PhotoGallery from './components/PhotoGallery';
 import Footer from './components/Footer';
 import OpeningCeremony from './components/OpeningCeremony';
 import MobileActionDock from './components/MobileActionDock';
-import useScrollReveal from './hooks/useScrollReveal';
 
 export default function App() {
-  const [theme, setTheme] = useState('dark');
-
-  // Trigger smooth scroll-in animations as user scrolls down
-  useScrollReveal();
+  const [theme, setTheme] = useState('warm-silk');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme === 'warm-silk' ? 'warm-silk' : 'dark');
@@ -27,11 +22,10 @@ export default function App() {
 
   return (
     <div className="wedding-app">
+      <BackgroundSparkles />
+
       {/* Auspicious Opening Ceremony on Arrival */}
       <OpeningCeremony />
-
-      {/* Background Falling Petals & Shimmer */}
-      <PetalsCanvas />
 
       {/* Floating Navigation Header */}
       <Navbar
@@ -42,13 +36,12 @@ export default function App() {
       {/* Main Content Sections */}
       <main>
         <Hero />
-        <CoupleStory />
         <EventsTimeline />
-        <VenueMap />
+        <CoupleStory />
         <PhotoGallery />
       </main>
 
-      {/* Floating Action Dock & Flower Blessings */}
+      {/* Mobile quick actions and desktop flower blessings */}
       <MobileActionDock />
 
       {/* Footer */}

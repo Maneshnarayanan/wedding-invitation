@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Download, Check } from 'lucide-react';
+import { Download, Check } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
+
+export function getWeddingCalendarUrl() {
+  const title = encodeURIComponent(`Wedding: ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`);
+  const details = encodeURIComponent(
+    `Join us in celebrating the Keralam traditional wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}!\n\nMuhurtham: ${weddingConfig.muhurthamTime}\nVenue: ${weddingConfig.venue.name}, ${weddingConfig.venue.city}\nGoogle Maps: ${weddingConfig.venue.googleMapsUrl}`
+  );
+  const location = encodeURIComponent(`${weddingConfig.venue.name}, ${weddingConfig.venue.address}`);
+  const dates = '20270103T053000Z/20270103T061600Z';
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
+}
 
 export default function Countdown() {
   const [timeLeft, setTimeLeft] = useState({
@@ -35,18 +45,6 @@ export default function Countdown() {
     return () => clearInterval(interval);
   }, []);
 
-  // Generate Google Calendar Link
-  const getGoogleCalendarUrl = () => {
-    const title = encodeURIComponent(`Wedding: ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`);
-    const details = encodeURIComponent(
-      `Join us in celebrating the Keralam traditional wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}!\n\nMuhurtham: ${weddingConfig.muhurthamTime}\nVenue: ${weddingConfig.venue.name}, ${weddingConfig.venue.city}\nGoogle Maps: ${weddingConfig.venue.googleMapsUrl}`
-    );
-    const location = encodeURIComponent(`${weddingConfig.venue.name}, ${weddingConfig.venue.address}`);
-    // Jan 3, 2027 11:00 AM to 15:30 PM IST (UTC 05:30Z to 10:00Z)
-    const dates = `20270103T053000Z/20270103T100000Z`;
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
-  };
-
   // Download .ics file
   const downloadIcsFile = () => {
     const icsContent = [
@@ -61,7 +59,7 @@ export default function Countdown() {
       'DESCRIPTION:Muhurtham: ' + weddingConfig.muhurthamTime + ' at ' + weddingConfig.venue.name + ', ' + weddingConfig.venue.city,
       'LOCATION:' + weddingConfig.venue.name + ', ' + weddingConfig.venue.address,
       'DTSTART:20270103T053000Z',
-      'DTEND:20270103T100000Z',
+      'DTEND:20270103T061600Z',
       'STATUS:CONFIRMED',
       'END:VEVENT',
       'END:VCALENDAR'
@@ -100,24 +98,14 @@ export default function Countdown() {
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.65rem', justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
-        <a
-          href={getGoogleCalendarUrl()}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-gold-secondary"
-          style={{ fontSize: '0.84rem', padding: '0.65rem 1.15rem', flex: '1 1 180px', textAlign: 'center' }}
-        >
-          <Calendar size={15} /> Add to Google Calendar
-        </a>
-
+      <div className="countdown-calendar-action">
         <button
           onClick={downloadIcsFile}
           className="btn-gold-secondary"
-          style={{ fontSize: '0.84rem', padding: '0.65rem 1.15rem', flex: '1 1 160px', textAlign: 'center' }}
+          style={{ fontSize: '0.84rem', padding: '0.65rem 1.15rem' }}
         >
           {calendarDownloaded ? <Check size={15} /> : <Download size={15} />}
-          {calendarDownloaded ? 'Saved (.ics)' : 'Apple / iCal File'}
+          {calendarDownloaded ? 'Saved (.ics)' : 'Download calendar file'}
         </button>
       </div>
     </div>

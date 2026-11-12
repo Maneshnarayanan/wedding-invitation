@@ -6,10 +6,9 @@ export default function Navbar({ theme, toggleTheme }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'The Couple', href: '#couple' },
-    { label: 'The Wedding Muhurtham', href: '#events' },
-    { label: 'Venue (Poinachi)', href: '#venue' },
-    { label: 'Our Story', href: '#story' },
+    { label: 'Couple', href: '#couple' },
+    { label: 'Ceremony', href: '#events' },
+    { label: 'Venue', href: '#venue' },
     { label: 'Gallery', href: '#gallery' },
   ];
 

@@ -72,9 +72,14 @@
   --color-text-secondary: #4A3E31;
   --color-text-muted: #7D7060;
   --color-text-gold: #855F0D;
+  --color-gold-200: #8A641D;
+  --color-gold-300: #966B20;
+  --color-gold-400: #A87824;
+  --color-gold-500: #B88E1F;
   --color-border-gold: rgba(184, 142, 31, 0.5);
   --color-border-subtle: rgba(184, 142, 31, 0.18);
   --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F9F5EC 100%);
+  --gradient-gold-text: linear-gradient(90deg, #805716 0%, #B88E1F 55%, #805716 100%);
   --shadow-card: 0 16px 36px -10px rgba(100, 75, 30, 0.16);
 }
 
@@ -89,6 +94,10 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   color-scheme: dark;
+}
+
+html[data-theme='warm-silk'] {
+  color-scheme: light;
 }
 
 body {

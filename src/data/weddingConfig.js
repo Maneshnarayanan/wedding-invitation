@@ -35,7 +35,7 @@ export const weddingConfig = {
   
   hashtag: "#ManeshWedsPooja",
   
-  invitationNote: "We, along with our families, warmly invite you with immense happiness to the auspicious Keralam traditional wedding ceremony of Manesh K and Pooja S. Your presence, prayers, and blessings will grace this special occasion.",
+  invitationNote: "Together with our families, we warmly invite you to celebrate our wedding and bless our new beginning.",
   
   sacredSloka: {
     sanskrit: "माङ्गल्यं तन्तुनानेन मम जीवनहेतुना। कण्ठे बध्नामि सुभगे त्वं जीव शरदः शतम्॥",
@@ -50,8 +50,8 @@ export const weddingConfig = {
   events: [
     {
       id: "wedding",
-      title: "The Auspicious Wedding Ceremony (വിവാഹം & താലികെട്ട്)",
-      subtitle: "The Sacred Vows, Thali Kettu & Varmala Ceremony",
+      title: "The Wedding Ceremony",
+      subtitle: "Thali Kettu & Varmala",
       date: "Sunday, January 3, 2027",
       time: "11:00 AM - 11:46 AM (Auspicious Lagna)",
       venue: "Raj Palace, Poinachi, Kasaragod",
@@ -70,7 +70,7 @@ export const weddingConfig = {
     mapQuery: "Raj Palace Auditorium Poinachi Kasaragod Keralam",
     googleMapsUrl: "https://maps.google.com/?q=Raj+Palace+Auditorium+Poinachi+Kasaragod",
     phone: "+91 94470 00000 / +91 98460 00000",
-    notes: "Spacious vehicle parking available inside the auditorium premises."
+    notes: "On-site parking is available."
   },
 
   ourStory: [

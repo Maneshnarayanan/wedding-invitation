@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Navigation, Calendar, Sparkles } from 'lucide-react';
+import { Navigation, Calendar } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
+import { getWeddingCalendarUrl } from './Countdown';
 
 export default function MobileActionDock() {
-  const [blessingCount, setBlessingCount] = useState(0);
   const [showToast, setShowToast] = useState(false);
+  const [showMobileDock, setShowMobileDock] = useState(false);
+
+  useEffect(() => {
+    const updateDockVisibility = () => {
+      const quickActions = document.querySelector('.hero-actions');
+      setShowMobileDock(Boolean(quickActions && quickActions.getBoundingClientRect().bottom < 0));
+    };
+
+    updateDockVisibility();
+    window.addEventListener('scroll', updateDockVisibility, { passive: true });
+    return () => window.removeEventListener('scroll', updateDockVisibility);
+  }, []);
 
   const triggerFlowerShower = (e) => {
     e?.preventDefault?.();
-    setBlessingCount((prev) => prev + 1);
-
     // Subtle mobile haptic feedback if supported
     if (typeof window !== 'undefined' && window.navigator && window.navigator.vibrate) {
       try {
@@ -57,17 +67,6 @@ export default function MobileActionDock() {
     }, 2200);
   };
 
-  const calendarUrl = (() => {
-    const title = encodeURIComponent(`Manesh K & Pooja S Wedding (വിവാഹം)`);
-    // 2027-01-03 11:00 AM IST to 11:46 AM IST -> UTC is 05:30 to 06:16
-    const dates = "20270103T053000Z/20270103T061600Z";
-    const details = encodeURIComponent(
-      `Auspicious Keralam Traditional Wedding Ceremony (Muhurtham: ${weddingConfig.muhurthamTime})\nVenue: ${weddingConfig.venue.name}, ${weddingConfig.venue.city}\nGoogle Maps: ${weddingConfig.venue.googleMapsUrl}`
-    );
-    const location = encodeURIComponent(`${weddingConfig.venue.name}, ${weddingConfig.venue.city}`);
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
-  })();
-
   return (
     <>
       {/* Toast Notification when guest showers blessings */}
@@ -92,53 +91,34 @@ export default function MobileActionDock() {
         </button>
       </div>
 
-      {/* --- MOBILE STICKY FROSTED DOCK (Bottom Bar on Mobile) --- */}
-      <div className="mobile-action-dock" role="navigation" aria-label="Quick Wedding Actions">
-        <div className="mobile-dock-inner glass-card">
-          
-          {/* Action 1: Venue / Google Maps */}
-          <a
-            href={weddingConfig.venue.googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dock-item"
-            aria-label="Open venue in Google Maps"
-          >
-            <div className="dock-icon-circle">
-              <Navigation size={17} />
-            </div>
-            <span className="dock-label">Venue</span>
-          </a>
+      {/* --- MOBILE STICKY QUICK ACTIONS --- */}
+      {showMobileDock && (
+        <div className="mobile-action-dock" role="navigation" aria-label="Quick Wedding Actions">
+          <div className="mobile-dock-inner glass-card">
+            <a
+              href={weddingConfig.venue.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dock-item"
+              aria-label="Get directions to the wedding venue"
+            >
+              <Navigation size={18} />
+              <span className="dock-label">Directions</span>
+            </a>
 
-          {/* Action 2: Center Highlight - Shower Flower Blessings (🌸) */}
-          <button
-            onClick={triggerFlowerShower}
-            className="dock-item dock-bless-hero"
-            aria-label="Shower flower blessings"
-          >
-            <div className="dock-bless-circle">
-              <span className="dock-flower-emoji">🌸</span>
-              <Sparkles size={14} className="dock-sparkle-overlay" />
-            </div>
-            <span className="dock-label dock-bless-label">Bless Couple</span>
-          </button>
-
-          {/* Action 3: Add to Google / Phone Calendar */}
-          <a
-            href={calendarUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dock-item"
-            aria-label="Add wedding to Calendar"
-          >
-            <div className="dock-icon-circle">
-              <Calendar size={17} />
-            </div>
-            <span className="dock-label">Save Date</span>
-          </a>
-
+            <a
+              href={getWeddingCalendarUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dock-item"
+              aria-label="Save the wedding date to your calendar"
+            >
+              <Calendar size={18} />
+              <span className="dock-label">Save date</span>
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

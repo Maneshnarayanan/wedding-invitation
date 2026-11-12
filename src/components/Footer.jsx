@@ -14,9 +14,10 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        
-        <div style={{ marginBottom: '1rem' }}>
-          <span style={{ fontSize: '1.8rem' }}>🪔</span>
+        <div className="footer-blessing-card">
+          <span className="footer-blessing-label">A blessing for the journey</span>
+          <p className="font-malayalam footer-blessing-malayalam">{weddingConfig.sacredSloka.malayalam}</p>
+          <p className="footer-blessing-meaning">{weddingConfig.sacredSloka.meaning}</p>
         </div>
 
         <h3 className="footer-names">

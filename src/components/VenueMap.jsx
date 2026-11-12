@@ -7,82 +7,47 @@ export default function VenueMap() {
   const embedUrl = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
 
   return (
-    <section id="venue" style={{ padding: '5rem 0' }}>
-      <div className="container">
-        
-        <div className="section-header reveal-on-scroll">
-          <span className="section-tag">Auspicious Venue</span>
-          <h2 className="section-title">The Wedding Venue</h2>
-          <div className="section-divider">
-            <span className="line" />
-            <span className="symbol">❦</span>
-            <span className="line" />
-          </div>
-          <p className="font-malayalam" style={{ maxWidth: '650px', margin: '1rem auto 0', color: 'var(--color-gold-300)', fontSize: '1.05rem' }}>
-            രാജ്‌പാലസ് ഓഡിറ്റോറിയം, പൊയിനാച്ചി, കാസർഗോഡ്
-          </p>
+    <div className="venue-panel" id="venue">
+      <div className="venue-panel-heading">
+        <MapPin size={19} />
+        <div>
+          <h3 className="venue-name">{weddingConfig.venue.name}</h3>
+          <p className="venue-hall">{weddingConfig.venue.hall}</p>
         </div>
-
-        <div className="venue-wrapper">
-          {/* Venue Info Card */}
-          <div className="venue-info-card glass-card reveal-on-scroll">
-            <div>
-              <h3 className="venue-name">{weddingConfig.venue.name}</h3>
-              <p className="venue-hall">{weddingConfig.venue.hall}</p>
-
-              <ul className="venue-meta-list">
-                <li className="venue-meta-item">
-                  <MapPin size={20} />
-                  <div>
-                    <strong>Address:</strong>
-                    <div>{weddingConfig.venue.address}</div>
-                  </div>
-                </li>
-
-                <li className="venue-meta-item">
-                  <Compass size={20} />
-                  <div>
-                    <strong>Landmark:</strong>
-                    <div>{weddingConfig.venue.landmark}</div>
-                  </div>
-                </li>
-
-                <li className="venue-meta-item">
-                  <Car size={20} />
-                  <div>
-                    <strong>Parking:</strong>
-                    <div>{weddingConfig.venue.notes}</div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <div style={{ marginTop: '1.5rem' }}>
-              <a
-                href={weddingConfig.venue.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gold-primary"
-                style={{ width: '100%' }}
-              >
-                <Navigation size={18} /> Open in Google Maps
-              </a>
-            </div>
-          </div>
-
-          {/* Map Embed Frame */}
-          <div className="map-container reveal-on-scroll">
-            <iframe
-              title="Raj Palace Auditorium Poinachi Location"
-              src={embedUrl}
-              className="map-iframe"
-              loading="lazy"
-              allowFullScreen
-            />
-          </div>
-        </div>
-
       </div>
-    </section>
+
+      <ul className="venue-meta-list">
+        <li className="venue-meta-item">
+          <MapPin size={18} />
+          <div><strong>Address</strong><div>{weddingConfig.venue.address}</div></div>
+        </li>
+        <li className="venue-meta-item">
+          <Compass size={18} />
+          <div><strong>Landmark</strong><div>{weddingConfig.venue.landmark}</div></div>
+        </li>
+        <li className="venue-meta-item">
+          <Car size={18} />
+          <div><strong>Parking</strong><div>{weddingConfig.venue.notes}</div></div>
+        </li>
+      </ul>
+
+      <div className="map-container">
+        <iframe
+          title="Raj Palace Auditorium Poinachi Location"
+          src={embedUrl}
+          className="map-iframe"
+          loading="lazy"
+          allowFullScreen
+        />
+      </div>
+      <a
+        href={weddingConfig.venue.googleMapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-gold-primary venue-directions"
+      >
+        <Navigation size={18} /> Get directions
+      </a>
+    </div>
   );
 }

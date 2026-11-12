@@ -1,5 +1,4 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function CoupleStory() {
@@ -7,30 +6,6 @@ export default function CoupleStory() {
     <section id="couple" style={{ padding: '5rem 0' }}>
       <div className="container">
         
-        {/* Sacred Traditional Sloka Card */}
-        <div className="sloka-card glass-card reveal-on-scroll">
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.8rem' }}>
-            <span style={{ fontSize: '2rem' }}>🪔</span>
-          </div>
-          <p className="sloka-sanskrit font-royal">
-            {weddingConfig.sacredSloka.sanskrit}
-          </p>
-          <p className="font-malayalam gold-accent" style={{ fontSize: '1.15rem', margin: '0.6rem 0', fontWeight: 'bold' }}>
-            {weddingConfig.sacredSloka.malayalam}
-          </p>
-          <div className="section-divider" style={{ margin: '1rem auto' }}>
-            <span className="line" />
-            <Sparkles size={16} className="gold-accent" />
-            <span className="line" />
-          </div>
-          <p className="sloka-meaning">
-            {weddingConfig.sacredSloka.meaning}
-          </p>
-          <p className="font-malayalam" style={{ marginTop: '1.25rem', color: 'var(--color-gold-300)', fontSize: '1.05rem', fontStyle: 'normal' }}>
-            {weddingConfig.keralaBlessing}
-          </p>
-        </div>
-
         {/* Section Header */}
         <div className="section-header reveal-on-scroll">
           <span className="section-tag">Auspicious Union • മംഗള സംഗമം</span>
