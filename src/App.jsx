@@ -10,15 +10,9 @@ import OpeningCeremony from './components/OpeningCeremony';
 import MobileActionDock from './components/MobileActionDock';
 
 export default function App() {
-  const [theme, setTheme] = useState('warm-silk');
-
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme === 'warm-silk' ? 'warm-silk' : 'dark');
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'warm-silk' : 'dark'));
-  };
+    document.documentElement.setAttribute('data-theme', 'warm-silk');
+  }, []);
 
   return (
     <div className="wedding-app">
@@ -28,10 +22,7 @@ export default function App() {
       <OpeningCeremony />
 
       {/* Floating Navigation Header */}
-      <Navbar
-        theme={theme}
-        toggleTheme={toggleTheme}
-      />
+      <Navbar />
 
       {/* Main Content Sections */}
       <main>

@@ -1,5 +1,6 @@
 // Real Couple Photos
-import coupleTogetherPhoto from '../assets/images_web/profilepic_together.jpg';
+import couplePhotoFirst from '../assets/images_web/profilepictogether_first.jpg';
+import couplePhotoSecond from '../assets/images_web/profilepic_together_second.jpg';
 import groomPhoto from '../assets/images_web/groom_profile.jpg';
 import bridePhoto from '../assets/images_web/bride_profile.jpg';
 import ringPhoto from '../assets/images_web/ring_focused.jpg';
@@ -11,7 +12,9 @@ import brideFocusPhoto from '../assets/images_web/bride_focus_portrait.jpg';
 
 // Keralam Traditional Wedding Configuration
 export const weddingConfig = {
-  couplePhoto: coupleTogetherPhoto,
+  couplePhoto: couplePhotoFirst,
+  couplePhotoFirst: couplePhotoFirst,
+  couplePhotoSecond: couplePhotoSecond,
   groom: {
     name: "Manesh",
     fullName: "Manesh K",

@@ -22,9 +22,11 @@ export default function CoupleStory() {
           
           {/* Top Royal Temple Arch Portrait of Couple Together */}
           <div className="couple-joint-photo-wrapper">
+            <span className="arch-love-sparkle sparkle-tl" aria-hidden="true">✨</span>
+            <span className="arch-love-sparkle sparkle-tr" aria-hidden="true">💛</span>
             <div className="couple-joint-arch-frame">
               <img
-                src={weddingConfig.couplePhoto}
+                src={weddingConfig.couplePhotoSecond}
                 alt={`${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`}
                 className="couple-joint-photo"
                 loading="lazy"
@@ -40,7 +42,7 @@ export default function CoupleStory() {
           {/* Joint Couple Names & Cursive "weds" */}
           <div className="couple-joint-names-box">
             <h3 className="joint-name font-royal text-gold-gradient">{weddingConfig.groom.fullName}</h3>
-            <span className="joint-weds font-script">weds</span>
+            <span className="joint-weds font-script">weds <span className="weds-heart">♥</span></span>
             <h3 className="joint-name font-royal text-gold-gradient">{weddingConfig.bride.fullName}</h3>
           </div>
 

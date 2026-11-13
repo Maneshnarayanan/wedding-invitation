@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="hero-section" id="home">
       <div className="hero-cover">
         <img
-          src={weddingConfig.couplePhoto}
+          src={weddingConfig.couplePhotoFirst}
           alt={`${weddingConfig.groom.fullName} and ${weddingConfig.bride.fullName}`}
           className="hero-cover-image"
           fetchPriority="high"
@@ -17,9 +17,11 @@ export default function Hero() {
           <p className="font-malayalam hero-invocation">॥ ശ്രീ ഗുരുഭ്യോ നമഃ • ശുഭ വിവാഹം ॥</p>
           <span className="hero-subtitle">Wedding invitation</span>
           <h1 className="hero-names">
+            <span className="hero-love-sparkle sparkle-left" aria-hidden="true">✨</span>
             <span>{weddingConfig.groom.fullName}</span>
             <span className="ampersand">&</span>
             <span>{weddingConfig.bride.fullName}</span>
+            <span className="hero-love-sparkle sparkle-right" aria-hidden="true">💛</span>
           </h1>
           <div className="hero-cover-details">
             <span><Calendar size={16} /> {weddingConfig.weddingDateFormatted}</span>

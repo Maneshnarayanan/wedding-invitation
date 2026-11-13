@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Moon, Sun, Menu, X, MapPin } from 'lucide-react';
+import { Menu, X, MapPin } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -38,15 +38,6 @@ export default function Navbar({ theme, toggleTheme }) {
       </nav>
 
       <div className="nav-actions">
-        <button
-          className="theme-toggle-btn"
-          onClick={toggleTheme}
-          aria-label={theme === 'dark' ? 'Switch to Kasavu Silk theme' : 'Switch to Royal Temple theme'}
-          title={theme === 'dark' ? 'Switch to Kasavu Silk' : 'Switch to Royal Temple'}
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-
         <a href="#venue" className="btn-gold-primary nav-route-btn" style={{ padding: '0.55rem 1.25rem', fontSize: '0.85rem' }}>
           <MapPin size={15} /> Venue Route
         </a>
