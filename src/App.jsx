@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import BackgroundSparkles from './components/BackgroundSparkles';
 import Hero from './components/Hero';
@@ -9,22 +9,42 @@ import Footer from './components/Footer';
 import OpeningCeremony from './components/OpeningCeremony';
 import MobileActionDock from './components/MobileActionDock';
 
-export default function App() {
+// Scroll reveal for .reveal, .reveal-left, .reveal-right
+function useScrollReveal() {
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'warm-silk');
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => el.classList.add('in-view'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.07, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    elements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
+}
+
+export default function App() {
+  useScrollReveal();
 
   return (
     <div className="wedding-app">
       <BackgroundSparkles />
-
-      {/* Auspicious Opening Ceremony on Arrival */}
       <OpeningCeremony />
-
-      {/* Floating Navigation Header */}
       <Navbar />
 
-      {/* Main Content Sections */}
       <main>
         <Hero />
         <EventsTimeline />
@@ -32,10 +52,7 @@ export default function App() {
         <PhotoGallery />
       </main>
 
-      {/* Mobile quick actions and desktop flower blessings */}
       <MobileActionDock />
-
-      {/* Footer */}
       <Footer />
     </div>
   );

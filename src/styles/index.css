@@ -1,184 +1,170 @@
 /* ==========================================================================
-   KERALAM TRADITIONAL WEDDING INVITATION - DESIGN SYSTEM
-   Theme: Keralam Kasavu Gold, Temple Maroon, Auspicious Ivory & Royal Emerald
+   MANESH & POOJA — MODERN LUXURY WEDDING INVITATION
+   Theme: Midnight Gold Palace • 3D Immersive • Kerala Heritage
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Manjari:wght@400;700&display=swap');
+
 :root {
-  /* Keralam Kasavu Palette */
-  --color-gold-50: #FFFDF7;
-  --color-gold-100: #FCF7E6;
-  --color-gold-200: #F6ECC4;
-  --color-gold-300: #EDDB95;
-  --color-gold-400: #DFB847;
-  --color-gold-500: #D4AF37; /* Kasavu Zari Gold */
-  --color-gold-600: #B88E1F;
-  --color-gold-700: #8F6913;
-  --color-gold-800: #6B4E0E;
-  
-  /* Traditional Keralam Accent Tones */
-  --color-temple-maroon: #681726;
-  --color-temple-maroon-dark: #3E0C15;
-  --color-kasavu-cream: #FCF9F2;
-  
-  --color-bg-base: #0E1318; /* Royal Temple Night */
-  --color-bg-surface: #151C24;
-  --color-bg-card: rgba(23, 30, 42, 0.85);
-  --color-bg-glass: rgba(16, 22, 30, 0.9);
-  --color-bg-glass-light: rgba(212, 175, 55, 0.06);
-  
-  --color-text-primary: #FAF9F5;
-  --color-text-secondary: #D9D7CE;
-  --color-text-muted: #A3A096;
-  --color-text-gold: #F4E2A8;
-  
-  --color-border-gold: rgba(212, 175, 55, 0.45);
-  --color-border-subtle: rgba(212, 175, 55, 0.15);
+  /* ── Midnight Gold Palette ── */
+  --g50:  #FFFDF7;
+  --g100: #FFF6DC;
+  --g200: #FFE89A;
+  --g300: #F5C842;
+  --g400: #E5A500;
+  --g500: #C8870A;
+  --g600: #A06810;
+  --g700: #7A4D0C;
 
-  /* Gradients */
-  --gradient-gold: linear-gradient(135deg, #FFF6D5 0%, #D4AF37 50%, #9B771A 100%);
-  --gradient-gold-text: linear-gradient(90deg, #FFF3D1 0%, #E5C158 35%, #FFF0C2 70%, #C49826 100%);
-  --gradient-card: linear-gradient(145deg, rgba(30, 39, 54, 0.88) 0%, rgba(18, 24, 34, 0.95) 100%);
-  --gradient-maroon: linear-gradient(135deg, #872033 0%, #52101D 100%);
+  --maroon:      #8B1A2D;
+  --maroon-deep: #3D0A14;
+  --rose:        #E11D48;
 
-  /* Kasavu Zari Border Motif */
-  --kasavu-border-pattern: repeating-linear-gradient(90deg, #B88E1F 0px, #FFECA9 4px, #D4AF37 8px, #8F6913 12px);
+  /* ── Background System ── */
+  --bg:         #080B12;
+  --bg-surface: #0D1220;
+  --bg-card:    rgba(13, 18, 32, 0.88);
+  --bg-glass:   rgba(8, 11, 18, 0.72);
+  --bg-glow:    rgba(229, 165, 0, 0.07);
 
-  /* Typography */
-  --font-serif-royal: 'Cinzel', serif;
-  --font-serif-decorative: 'Cinzel Decorative', serif;
-  --font-script: 'Great Vibes', cursive;
-  --font-editorial: 'Playfair Display', serif;
-  --font-sans: 'Outfit', sans-serif;
-  --font-malayalam: 'Manjari', 'Noto Sans Malayalam', sans-serif;
+  /* ── Text ── */
+  --text-primary:   #F8F5EE;
+  --text-secondary: #C8C0AD;
+  --text-muted:     #7A7060;
+  --text-gold:      #F5C842;
 
-  /* Shadows & Glows */
-  --shadow-gold-sm: 0 4px 14px 0 rgba(212, 175, 55, 0.2);
-  --shadow-gold-lg: 0 12px 32px -4px rgba(212, 175, 55, 0.3);
-  --shadow-card: 0 20px 45px -12px rgba(0, 0, 0, 0.75);
-  --glow-gold: 0 0 25px rgba(212, 175, 55, 0.4);
+  /* ── Border ── */
+  --border-gold:   rgba(229, 165, 0, 0.5);
+  --border-subtle: rgba(229, 165, 0, 0.18);
+  --border-glow:   rgba(229, 165, 0, 0.8);
 
-  /* Transitions */
-  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  /* ── Gradients ── */
+  --grad-gold:     linear-gradient(135deg, #FFE89A 0%, #E5A500 45%, #9B6610 100%);
+  --grad-gold-rev: linear-gradient(135deg, #9B6610 0%, #E5A500 55%, #FFE89A 100%);
+  --grad-gold-txt: linear-gradient(90deg, #FFE89A 0%, #F5C842 30%, #FFFDF7 55%, #E5A500 80%, #FFE89A 100%);
+  --grad-card:     linear-gradient(145deg, rgba(18, 25, 42, 0.95) 0%, rgba(10, 14, 24, 0.98) 100%);
+  --grad-hero:     radial-gradient(ellipse at 50% 0%, rgba(229, 165, 0, 0.22) 0%, rgba(139, 26, 45, 0.12) 50%, transparent 80%);
+  --grad-maroon:   linear-gradient(135deg, #8B1A2D 0%, #3D0A14 100%);
+  --kasavu:        repeating-linear-gradient(90deg, #A06810 0px, #FFE89A 4px, #E5A500 8px, #7A4D0C 12px);
+
+  /* ── Fonts ── */
+  --f-royal:     'Cinzel', serif;
+  --f-deco:      'Cinzel Decorative', serif;
+  --f-script:    'Great Vibes', cursive;
+  --f-editorial: 'Playfair Display', serif;
+  --f-sans:      'Outfit', sans-serif;
+  --f-ml:        'Manjari', 'Noto Sans Malayalam', sans-serif;
+
+  /* ── Shadows ── */
+  --shadow-gold:  0 0 40px rgba(229, 165, 0, 0.35);
+  --shadow-card:  0 24px 60px -10px rgba(0,0,0,0.9), 0 0 0 1px var(--border-subtle);
+  --shadow-deep:  0 40px 80px -15px rgba(0,0,0,0.95);
+  --glow-gold:    0 0 30px rgba(229, 165, 0, 0.6), 0 0 60px rgba(229, 165, 0, 0.3);
+  --glow-rose:    0 0 20px rgba(225, 29, 72, 0.5);
+
+  /* ── Transitions ── */
+  --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast:       0.2s var(--ease);
+  --t-med:        0.4s var(--ease);
+  --t-slow:       0.65s var(--ease);
 }
 
-/* Keralam Kasavu Silk Alternate Theme */
-[data-theme='warm-silk'] {
-  --color-bg-base: #FBF9F3;
-  --color-bg-surface: #F4EFE2;
-  --color-bg-card: rgba(255, 255, 255, 0.92);
-  --color-bg-glass: rgba(251, 249, 243, 0.95);
-  --color-bg-glass-light: rgba(212, 175, 55, 0.08);
-  --color-text-primary: #211B14;
-  --color-text-secondary: #4A3E31;
-  --color-text-muted: #7D7060;
-  --color-text-gold: #855F0D;
-  --color-gold-200: #8A641D;
-  --color-gold-300: #966B20;
-  --color-gold-400: #A87824;
-  --color-gold-500: #B88E1F;
-  --color-border-gold: rgba(184, 142, 31, 0.5);
-  --color-border-subtle: rgba(184, 142, 31, 0.18);
-  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F9F5EC 100%);
-  --gradient-gold-text: linear-gradient(90deg, #805716 0%, #B88E1F 55%, #805716 100%);
-  --shadow-card: 0 16px 36px -10px rgba(100, 75, 30, 0.16);
-}
-
-/* Reset & Setup */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
   font-size: 16px;
   color-scheme: dark;
-}
-
-html[data-theme='warm-silk'] {
-  color-scheme: light;
+  overflow-x: hidden;
 }
 
 body {
-  background-color: var(--color-bg-base);
-  color: var(--color-text-primary);
-  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--f-sans);
   line-height: 1.7;
   overflow-x: hidden;
-  transition: background-color 0.4s ease, color 0.4s ease;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Canvas Floating Flowers & Sparkles */
-#petals-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-}
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--g500), var(--g300)); border-radius: 3px; }
 
-/* Container */
+/* ── Container ── */
 .container {
   width: 100%;
-  max-width: 1160px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 1.5rem;
   position: relative;
   z-index: 2;
 }
 
-/* Typography */
-.font-royal { font-family: var(--font-serif-royal); }
-.font-decorative { font-family: var(--font-serif-decorative); }
-.font-script { font-family: var(--font-script); }
-.font-editorial { font-family: var(--font-editorial); }
-.font-sans { font-family: var(--font-sans); }
-.font-malayalam { font-family: var(--font-malayalam); }
+/* ── Utility Typography ── */
+.font-royal     { font-family: var(--f-royal); }
+.font-deco      { font-family: var(--f-deco); }
+.font-script    { font-family: var(--f-script); }
+.font-editorial { font-family: var(--f-editorial); }
+.font-sans      { font-family: var(--f-sans); }
+.font-malayalam { font-family: var(--f-ml); }
 
-.text-gold-gradient {
-  background: var(--gradient-gold-text);
+.text-gold {
+  background: var(--grad-gold-txt);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gold-shimmer-txt 4s linear infinite;
 }
 
-.gold-accent {
-  color: var(--color-gold-400);
-}
+.gold-accent { color: var(--g300); }
 
-/* Section Header Motif */
+/* ── Section Headers ── */
 .section-header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   position: relative;
 }
 
 .section-tag {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
+  font-family: var(--f-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-gold-400);
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  padding: 0.35rem 1.2rem;
-  background: var(--color-bg-glass-light);
-  border: 1px solid var(--color-border-gold);
+  color: var(--g300);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 0.4rem 1.4rem;
+  background: rgba(229, 165, 0, 0.08);
+  border: 1px solid var(--border-gold);
   border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(229,165,0,0.15), transparent);
+  animation: tag-sweep 3s ease-in-out infinite;
 }
 
 .section-title {
-  font-family: var(--font-serif-royal);
-  font-size: clamp(2.1rem, 4vw, 3.1rem);
+  font-family: var(--f-royal);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
   font-weight: 700;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.75rem;
-  line-height: 1.25;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .section-divider {
@@ -186,239 +172,349 @@ body {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin: 1rem auto 0;
-  max-width: 320px;
+  margin: 1.2rem auto 0;
+  max-width: 300px;
 }
 
 .section-divider .line {
   flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--g500), transparent);
 }
 
 .section-divider .symbol {
-  color: var(--color-gold-400);
-  font-size: 1.3rem;
-  animation: pulse-glow 3s infinite ease-in-out;
+  color: var(--g300);
+  font-size: 1.4rem;
+  animation: pulse-sacred 3s ease-in-out infinite;
 }
 
-/* Traditional Kasavu Border Card with 3D Spatial Depth */
+/* ── Glass Card Base ── */
 .glass-card {
-  background: var(--gradient-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border-gold);
-  border-radius: 20px;
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.16),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.45),
-    0 16px 38px -8px rgba(0, 0, 0, 0.8),
-    0 0 20px rgba(212, 175, 55, 0.14);
+  background: var(--grad-card);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
   transform-style: preserve-3d;
-  transition: var(--transition-smooth);
+  transition: var(--t-med);
   position: relative;
   overflow: hidden;
 }
 
-/* Kasavu Golden Zari Header Ribbon with Subtle Shimmer */
 .glass-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--kasavu-border-pattern);
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--kasavu);
   background-size: 200% 100%;
-  animation: kasavu-zari-shimmer 6s linear infinite;
-  box-shadow: 0 1px 6px rgba(212, 175, 55, 0.4);
+  animation: kasavu-flow 5s linear infinite;
+  box-shadow: 0 1px 8px rgba(229, 165, 0, 0.5);
 }
 
 .glass-card:hover {
-  border-color: rgba(212, 175, 55, 0.7);
-  transform: translateY(-5px) perspective(1000px) translateZ(8px);
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.28),
-    0 24px 50px -10px rgba(0, 0, 0, 0.88),
-    0 0 30px rgba(212, 175, 55, 0.28);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-card), var(--shadow-gold);
+  transform: translateY(-6px) perspective(1200px) translateZ(12px);
 }
 
-/* 3D Gold Buttons */
+/* ── Buttons ── */
 .btn-gold-primary {
-  background: var(--gradient-gold);
-  color: #1A1405;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  padding: 0.85rem 2rem;
+  background: var(--grad-gold);
+  color: #0D0A00;
+  font-family: var(--f-sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
   border-radius: 9999px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.6rem;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -2px 0 rgba(140, 95, 10, 0.65),
-    0 6px 20px rgba(212, 175, 55, 0.42),
-    0 3px 6px rgba(0, 0, 0, 0.4);
-  transform: perspective(600px) translateZ(0);
-  transition: var(--transition-smooth);
   text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -2px 0 rgba(0,0,0,0.3),
+    0 8px 24px rgba(229,165,0,0.45),
+    0 2px 6px rgba(0,0,0,0.5);
+  transform: perspective(600px) translateZ(0);
+  transition: var(--t-med);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold-primary::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 220%; height: 220%;
+  background: linear-gradient(105deg, transparent 36%, rgba(255,255,255,0.4) 50%, transparent 64%);
+  animation: btn-sheen 3.5s ease-in-out infinite 1s;
 }
 
 .btn-gold-primary:hover {
-  transform: perspective(600px) translateY(-3px) translateZ(6px);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 10px 28px rgba(212, 175, 55, 0.55),
-    0 4px 10px rgba(0, 0, 0, 0.45);
-  filter: brightness(1.05);
+  transform: perspective(600px) translateY(-3px) translateZ(8px);
+  box-shadow: 0 14px 35px rgba(229,165,0,0.6), 0 4px 10px rgba(0,0,0,0.5);
+  filter: brightness(1.08);
 }
 
 .btn-gold-primary:active {
-  transform: perspective(600px) translateY(2px) translateZ(0);
-  box-shadow: 
-    inset 0 2px 4px rgba(0, 0, 0, 0.35),
-    0 2px 8px rgba(212, 175, 55, 0.3);
+  transform: perspective(600px) translateY(1px) translateZ(0);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 2px 8px rgba(229,165,0,0.3);
 }
 
 .btn-gold-secondary {
-  background: var(--color-bg-glass-light);
-  color: var(--color-gold-300);
-  font-family: var(--font-sans);
+  background: rgba(229, 165, 0, 0.08);
+  color: var(--g300);
+  font-family: var(--f-sans);
   font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  padding: 0.85rem 1.85rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  padding: 0.9rem 2rem;
   border-radius: 9999px;
-  border: 1px solid var(--color-border-gold);
+  border: 1px solid var(--border-gold);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.6rem;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 6px 18px rgba(0, 0, 0, 0.45),
-    0 0 12px rgba(212, 175, 55, 0.12);
-  transform: perspective(600px) translateZ(0);
-  transition: var(--transition-smooth);
   text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 0 12px rgba(229,165,0,0.1);
+  transform: perspective(600px) translateZ(0);
+  transition: var(--t-med);
 }
 
 .btn-gold-secondary:hover {
-  background: rgba(212, 175, 55, 0.2);
-  color: #FFF;
-  border-color: var(--color-gold-400);
-  transform: perspective(600px) translateY(-3px) translateZ(4px);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 10px 24px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(212, 175, 55, 0.25);
+  background: rgba(229, 165, 0, 0.18);
+  border-color: var(--border-glow);
+  color: var(--g100);
+  transform: perspective(600px) translateY(-3px) translateZ(6px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.6), 0 0 20px rgba(229,165,0,0.25);
 }
 
-.btn-gold-secondary:active {
-  transform: perspective(600px) translateY(2px) translateZ(0);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+/* ── Scroll Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
 }
 
-/* Animations & Sacred Keralam Gold Glows */
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.75; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.9)); }
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-/* Living Nilavilakku Temple Flame Flicker */
-@keyframes nilavilakku-flicker {
-  0%, 100% {
-    transform: scale(1) translateY(0);
-    filter: drop-shadow(0 0 8px rgba(255, 185, 45, 0.85)) drop-shadow(0 0 18px rgba(212, 175, 55, 0.55));
-  }
-  25% {
-    transform: scale(1.08) translateY(-1px) rotate(-1deg);
-    filter: drop-shadow(0 0 14px rgba(255, 215, 80, 0.98)) drop-shadow(0 0 26px rgba(212, 175, 55, 0.75));
-  }
-  50% {
-    transform: scale(0.96) translateY(0.5px) rotate(1deg);
-    filter: drop-shadow(0 0 7px rgba(245, 160, 30, 0.8)) drop-shadow(0 0 15px rgba(212, 175, 55, 0.45));
-  }
-  75% {
-    transform: scale(1.04) translateY(-0.5px);
-    filter: drop-shadow(0 0 12px rgba(255, 195, 60, 0.92)) drop-shadow(0 0 22px rgba(212, 175, 55, 0.65));
-  }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
 }
 
-/* Metallic Gold Sheen Ray Sweep */
-@keyframes gold-sheen-sweep {
-  0% {
-    transform: translateX(-160%) rotate(25deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.95;
-  }
-  38% {
-    transform: translateX(180%) rotate(25deg);
-    opacity: 0.9;
-  }
-  42%, 100% {
-    transform: translateX(200%) rotate(25deg);
-    opacity: 0;
-  }
+.reveal-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-/* Kasavu Zari Golden Thread Shimmer */
-@keyframes kasavu-zari-shimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
 }
 
-/* Ambient Sacred Halo Breathing */
-@keyframes ambient-glow-breathe {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(0.98);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.02);
-  }
+.reveal-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+/* stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.45s; }
+.delay-5 { transition-delay: 0.6s; }
+
+/* ── GLOBAL KEYFRAMES ── */
+@keyframes gold-shimmer-txt {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes tag-sweep {
+  0%   { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(200%); }
+}
+
+@keyframes kasavu-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes pulse-sacred {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px var(--g400)); }
+  50%       { transform: scale(1.2); filter: drop-shadow(0 0 14px var(--g300)); }
+}
+
+@keyframes btn-sheen {
+  0%, 100% { transform: translateX(-100%) rotate(20deg); opacity: 0; }
+  10%, 40% { opacity: 1; }
+  50%       { transform: translateX(100%) rotate(20deg); opacity: 0; }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes float-y-sm {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-6px) rotate(5deg); }
 }
 
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
-.animate-float {
-  animation: float-slow 5s ease-in-out infinite;
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.95); }
+  50%       { opacity: 1; transform: scale(1.05); }
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-base);
+@keyframes nilavilakku {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(255,185,45,0.9)) drop-shadow(0 0 20px rgba(229,165,0,0.6)); transform: scale(1) rotate(-1deg); }
+  25%       { filter: drop-shadow(0 0 16px rgba(255,220,80,1)) drop-shadow(0 0 32px rgba(229,165,0,0.8)); transform: scale(1.1) rotate(1deg) translateY(-2px); }
+  50%       { filter: drop-shadow(0 0 6px rgba(240,160,30,0.8)); transform: scale(0.95) rotate(0.5deg); }
+  75%       { filter: drop-shadow(0 0 12px rgba(255,200,60,0.95)) drop-shadow(0 0 25px rgba(229,165,0,0.7)); transform: scale(1.05) rotate(-0.5deg); }
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.5);
-  border-radius: 4px;
+@keyframes shimmer-sweep {
+  0%  { transform: translateX(-160%) rotate(25deg); opacity: 0; }
+  15% { opacity: 0.9; }
+  40% { transform: translateX(180%) rotate(25deg); opacity: 0.9; }
+  45%, 100% { transform: translateX(200%) rotate(25deg); opacity: 0; }
+}
+
+@keyframes ambient-breathe {
+  0%, 100% { opacity: 0.3; transform: scale(0.97); }
+  50%       { opacity: 0.75; transform: scale(1.03); }
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes particle-rise {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-80px) scale(0); opacity: 0; }
+}
+
+@keyframes countdown-flip {
+  0%   { transform: perspective(300px) rotateX(0deg); }
+  50%  { transform: perspective(300px) rotateX(-90deg); }
+  100% { transform: perspective(300px) rotateX(0deg); }
+}
+
+@keyframes door-open-left {
+  0%   { transform: perspective(1200px) rotateY(0deg); }
+  100% { transform: perspective(1200px) rotateY(-115deg); opacity: 0; }
+}
+
+@keyframes door-open-right {
+  0%   { transform: perspective(1200px) rotateY(0deg); }
+  100% { transform: perspective(1200px) rotateY(115deg); opacity: 0; }
+}
+
+@keyframes overlay-fade {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes medallion-rise {
+  0%   { transform: translateY(20px) scale(0.9); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes hero-reveal {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  0%   { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes card-tilt-hover {
+  0%   { transform: perspective(1000px) rotateX(0) rotateY(0); }
+  100% { transform: perspective(1000px) rotateX(2deg) rotateY(4deg); }
+}
+
+@keyframes petal-fall {
+  0%   { transform: translateY(-10px) rotate(0deg) scale(1); opacity: 0.8; }
+  100% { transform: translateY(100vh) rotate(720deg) scale(0.4); opacity: 0; }
+}
+
+/* ── Ambient Sparkle Field ── */
+.ambient-sparkle-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-sparkle-item {
+  position: absolute;
+  pointer-events: none;
+  animation: float-y var(--dur, 7s) var(--delay, 0s) ease-in-out infinite;
+  opacity: 0.45;
+  user-select: none;
+}
+
+.item-heart  { color: var(--rose); animation-name: float-y-sm; }
+.item-star   { color: var(--g300); }
+.item-sparkle { opacity: 0.55; }
+.bokeh-orb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229,165,0,0.35) 0%, transparent 70%);
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+
+/* ── Tap Burst ── */
+.tap-burst-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.tap-burst-origin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.tap-burst-particle {
+  position: absolute;
+  display: block;
+  animation: tap-burst-anim 0.9s var(--ease) forwards;
+  user-select: none;
+}
+
+@keyframes tap-burst-anim {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(0); opacity: 0; }
 }
