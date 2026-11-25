@@ -440,8 +440,8 @@ body {
 }
 
 @keyframes medallion-rise {
-  0%   { transform: translateY(20px) scale(0.9); opacity: 0; }
-  100% { transform: translateY(0) scale(1); opacity: 1; }
+  0%   { transform: translate(-50%, calc(-50% + 20px)) scale(0.9); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
 @keyframes hero-reveal {
