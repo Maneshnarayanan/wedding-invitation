@@ -101,31 +101,7 @@
   padding: 0.4rem;
 }
 
-@media (max-width: 768px) {
-  .brand-desktop { display: none; }
-  .brand-mobile  { display: inline; }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: calc(100% + 0.75rem);
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(90vw, 320px);
-    background: rgba(8, 11, 18, 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border-gold);
-    border-radius: 20px;
-    padding: 1.2rem;
-    flex-direction: column;
-    gap: 0.75rem;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-  }
-
-  .nav-links.mobile-open { display: flex; }
-  .mobile-nav-toggle { display: flex; }
-  .nav-route-btn { display: none; }
-}
+/* Mobile nav rules are consolidated in the @media (max-width: 768px) section below */
 
 /* ═══════════════════════════════════════════════════════════════
    OPENING DOORS
@@ -1912,9 +1888,18 @@
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — DESKTOP ONLY RULES
 ═══════════════════════════════════════════════════════════════ */
+/* Mobile portrait (hidden on desktop, shown on mobile) */
+.hero-mobile-portrait {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .gallery-mobile-carousel-wrapper { display: none; }
   .gallery-grid.gallery-desktop-grid { display: grid; }
+}
+
+@media (min-width: 769px) {
+  .mobile-action-dock { display: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1926,12 +1911,21 @@
   /* ── Global ── */
   .container { padding: 0 1rem; }
 
-  .section-header { margin-bottom: 2.5rem; }
-  .section-title  { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  .events-section,
+  .couple-section,
+  .story-section,
+  .gallery-section,
+  .footer {
+    overflow-x: clip;
+  }
+
+  .section-header { margin-bottom: 2.25rem; }
+  .section-title  { font-size: clamp(1.65rem, 7vw, 2.35rem); }
+  .section-tag    { font-size: 0.68rem; letter-spacing: 0.22em; padding: 0.36rem 1.1rem; }
 
   .btn-gold-primary,
   .btn-gold-secondary {
-    padding: 0.85rem 1.6rem;
+    padding: 0.85rem 1.5rem;
     font-size: 0.88rem;
     min-height: 48px; /* touch target */
   }
@@ -1942,10 +1936,10 @@
   .nav-route-btn { display: none; }
 
   .navbar {
-    top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
-    padding: 0.6rem 1rem;
+    top: calc(env(safe-area-inset-top, 0px) + 0.65rem);
+    padding: 0.55rem 1rem;
     width: calc(100% - 1.5rem);
-    border-radius: 16px;
+    border-radius: 18px;
   }
 
   .nav-links {
@@ -1955,33 +1949,47 @@
     left: 0; right: 0;
     background: rgba(8, 11, 18, 0.97);
     backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--border-gold);
     border-radius: 20px;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     flex-direction: column;
     gap: 0;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.9), 0 0 25px rgba(229,165,0,0.12);
+    animation: hero-reveal 0.22s var(--ease) both;
   }
 
   .nav-links.mobile-open { display: flex; }
-  .mobile-nav-toggle { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+  .mobile-nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+  }
+  .mobile-nav-toggle:active { background: rgba(229,165,0,0.12); }
 
   .nav-links li { width: 100%; }
 
   .nav-links a {
-    display: block;
-    padding: 0.9rem 1rem;
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1rem;
     font-weight: 600;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-subtle);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     font-size: 0.82rem;
   }
 
+  .nav-links a::after { display: none; }
   .nav-links li:last-child a { border-bottom: none; }
-  .nav-links a:hover { color: var(--g300); background: rgba(229,165,0,0.06); border-radius: 10px; }
+  .nav-links a:hover,
+  .nav-links a:active { color: var(--g300); background: rgba(229,165,0,0.08); border-radius: 12px; }
 
   /* ── Opening Doors ── */
   .door-arch-inset  { width: min(85%, 160px); gap: 0.75rem; }
@@ -1994,12 +2002,12 @@
   .door-kasavu-trim { height: 5px; }
 
   .royal-center-medallion {
-    width: min(85vw, 300px);
-    padding: 1.4rem 1.2rem;
+    width: min(86vw, 310px);
+    padding: 1.5rem 1.25rem;
   }
-  .medallion-name        { font-size: clamp(1.3rem, 6vw, 1.7rem); }
+  .medallion-name        { font-size: clamp(1.35rem, 6vw, 1.75rem); }
   .medallion-ampersand   { font-size: 2rem; }
-  .medallion-lamp-halo   { width: 48px; height: 48px; }
+  .medallion-lamp-halo   { width: 50px; height: 50px; }
   .medallion-lamp-icon   { font-size: 1.7rem; }
 
   /* ── Mobile portrait card ── */
@@ -2007,7 +2015,7 @@
     display: block;
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 65svh;
+    height: 62svh;
     z-index: 1;
     pointer-events: none;
   }
@@ -2021,8 +2029,8 @@
   .hero-mobile-portrait-img {
     width: 100%; height: 100%;
     object-fit: cover;
-    object-position: center 15%;
-    filter: brightness(0.5) saturate(0.7);
+    object-position: center 18%;
+    filter: brightness(0.68) saturate(0.92) contrast(1.04);
   }
 
   .hero-mobile-portrait-fade {
@@ -2030,9 +2038,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(8,11,18,0.3) 0%,
-      transparent 30%,
-      transparent 55%,
+      rgba(8,11,18,0.52) 0%,
+      rgba(8,11,18,0.12) 28%,
+      rgba(8,11,18,0.45) 58%,
+      rgba(8,11,18,0.92) 84%,
       rgba(8,11,18,1) 100%
     );
   }
@@ -2044,64 +2053,68 @@
     grid-template-rows: 1fr auto;
   }
 
-  .hero-portrait-frame { display: none; } /* hidden — bg photo used instead */
+  .hero-portrait-frame { display: none; } /* hidden — mobile portrait card used instead */
 
   .hero-bg-image {
-    filter: brightness(0.25) saturate(0.5);
+    filter: brightness(0.22) saturate(0.5);
   }
 
-  /* Pull cover content up with more room */
+  /* Pull cover content up with balanced room for portrait above */
   .hero-cover {
-    padding: 7rem 1.2rem 1.5rem;
-    min-height: 55vh;
+    padding: 13.5rem 1.2rem 1.2rem;
+    min-height: 54svh;
     justify-content: flex-end;
     align-items: center;
   }
 
   .hero-cover-content {
-    gap: 0.5rem;
+    gap: 0.45rem;
+    padding-top: 0;
   }
 
-  .hero-invocation  { font-size: 0.82rem; }
+  .hero-invocation  { font-size: 0.84rem; text-shadow: 0 2px 14px rgba(0,0,0,0.95); }
   .hero-subtitle    { font-size: 0.7rem; letter-spacing: 0.28em; }
 
-  /* Couple names — big, stacked, full-width */
+  /* Couple names — big, stacked, editorial without stray emoji lines */
   .hero-names {
     flex-direction: column;
-    gap: 0.15rem;
-    font-size: clamp(2.2rem, 10vw, 3.5rem);
-    line-height: 1.1;
+    gap: 0.05rem;
+    font-size: clamp(2.25rem, 10.5vw, 3.4rem);
+    line-height: 1.08;
+    margin: 0.25rem 0;
   }
 
   .hero-names .ampersand {
-    font-size: clamp(2.6rem, 12vw, 4rem);
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
+    line-height: 0.95;
   }
 
-  .hero-sparkle { font-size: 1.3rem; }
+  .hero-sparkle { display: none; }
 
   /* Quick info block */
   .hero-quick-info {
-    padding: 2rem 1.2rem calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
-    gap: 1.2rem;
-    background: linear-gradient(to bottom, transparent, rgba(8,11,18,1) 20%);
+    padding: 1.25rem 1.15rem calc(env(safe-area-inset-bottom, 0px) + 5rem);
+    gap: 1.15rem;
+    background: linear-gradient(to bottom, rgba(8,11,18,0) 0%, rgba(8,11,18,0.96) 14%, rgba(8,11,18,1) 100%);
   }
 
-  /* Muhurtham seal — compact on mobile */
+  /* Muhurtham seal — compact embossed gold-foil card on mobile */
   .muhurtham-seal {
-    padding: 0.9rem 1.2rem;
+    padding: 1rem 1.15rem;
     gap: 0.5rem;
-    border-radius: 16px;
+    border-radius: 18px;
     width: 100%;
   }
 
-  .seal-date-row   { font-size: 0.85rem; gap: 0.4rem; flex-wrap: wrap; }
-  .seal-muhurtham-highlight { font-size: 0.82rem; padding: 0.28rem 0.9rem; }
+  .seal-date-row   { font-size: 0.86rem; gap: 0.35rem 0.5rem; flex-wrap: wrap; }
+  .seal-malayalam-date { font-size: 0.82rem; line-height: 1.5; }
+  .seal-muhurtham-highlight { font-size: 0.82rem; padding: 0.32rem 0.95rem; }
   .seal-lamp       { font-size: 1.1rem; }
 
   .hero-invitation-text {
     font-size: 0.95rem;
     line-height: 1.65;
-    padding: 0 0.2rem;
+    padding: 0 0.35rem;
   }
 
   /* Action buttons — full width stack */
@@ -2115,64 +2128,69 @@
   .hero-actions .btn-gold-secondary {
     width: 100%;
     justify-content: center;
-    font-size: 0.95rem;
-    padding: 1rem 1.5rem;
+    font-size: 0.92rem;
+    padding: 0.95rem 1.4rem;
   }
 
-  /* Countdown — full width, comfortable boxes */
+  /* Countdown — 4-column equal grid on mobile */
   .hero-countdown { width: 100%; }
 
-  .countdown-wrapper { max-width: 100%; }
+  .countdown-wrapper { max-width: 100%; gap: 1rem; }
 
   .countdown-container {
-    gap: 0.6rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.55rem;
     width: 100%;
   }
 
   .countdown-box {
-    height: 80px;
+    height: 78px;
     min-width: 0;
+    max-width: none;
     border-radius: 14px;
-    flex: 1;
   }
 
-  .countdown-num   { font-size: clamp(1.4rem, 6vw, 2rem); }
+  .countdown-num   { font-size: clamp(1.35rem, 6vw, 1.9rem); }
   .countdown-label { font-size: 0.58rem; letter-spacing: 0.1em; }
 
   /* ── Events / Ceremony ── */
   .events-section  { padding: 4rem 0; }
 
-  .event-card { padding: 1.6rem 1.2rem !important; }
+  .event-card { padding: 1.6rem 1.15rem !important; border-radius: 22px; }
 
   .event-overview {
     grid-template-columns: 1fr;
-    gap: 0.5rem 1rem;
+    gap: 0.45rem 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .event-icon-badge {
-    margin: 0 auto 0.5rem;
+    grid-row: auto;
+    grid-column: 1;
+    margin: 0 auto 0.4rem;
     width: 54px !important; height: 54px !important;
   }
 
-  .event-title    { font-size: 1.3rem; text-align: center; }
+  .event-title    { font-size: 1.35rem; text-align: center; }
   .event-subtitle { text-align: center; font-size: 0.95rem; }
 
   .event-details-list {
     grid-column: 1;
-    padding: 0.9rem 1rem;
-    gap: 0.6rem;
+    padding: 0.95rem 1rem;
+    gap: 0.65rem;
   }
 
   .event-detail-item { font-size: 0.88rem; gap: 0.6rem; }
 
   /* Venue */
-  .venue-panel { padding: 1.4rem 1.1rem; gap: 0.9rem; }
-  .venue-name  { font-size: 1.1rem; }
+  .venue-panel { padding: 1.35rem 1.05rem; gap: 0.9rem; border-radius: 18px; }
+  .venue-name  { font-size: 1.12rem; }
 
   .map-container {
     aspect-ratio: 4/3;
-    min-height: 200px;
-    border-radius: 12px;
+    min-height: 210px;
+    border-radius: 14px;
   }
 
   .venue-directions {
@@ -2184,40 +2202,44 @@
   .couple-section { padding: 4rem 0; }
 
   .couple-master-card {
-    padding: 1.8rem 1rem 1.5rem;
+    padding: 1.85rem 1rem 1.5rem;
     border-radius: 24px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* Photo arch — taller on mobile for impact */
+  /* Photo arch — framed on mobile */
   .couple-joint-arch-frame {
-    width: min(260px, 72vw);
-    height: min(340px, 90vw);
+    width: min(250px, 70vw);
+    height: min(330px, 88vw);
   }
 
-  .couple-joint-photo-wrapper { margin-bottom: 1.2rem; }
+  .arch-sparkle.tl { left: calc(50% - 125px); top: -6px; font-size: 1.25rem; }
+  .arch-sparkle.tr { right: calc(50% - 125px); top: -6px; font-size: 1.25rem; }
+
+  .couple-joint-photo-wrapper { margin-bottom: 1rem; }
 
   /* Names — stack & bigger */
   .couple-joint-names-box {
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.1rem;
     text-align: center;
   }
 
-  .joint-name  { font-size: clamp(1.5rem, 8vw, 2.2rem); }
-  .joint-weds  { font-size: clamp(1.8rem, 9vw, 2.6rem); }
-  .joint-blessing-quote { font-size: 0.95rem; padding: 0 0.5rem; }
+  .joint-name  { font-size: clamp(1.55rem, 8vw, 2.2rem); }
+  .joint-weds  { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+  .joint-blessing-quote { font-size: 0.94rem; padding: 0 0.5rem; margin-bottom: 1.2rem; }
+  .joint-card-divider { margin-bottom: 1.75rem; }
 
-  /* Lineage columns — single column, no center divider */
+  /* Lineage columns — single column with horizontal divider */
   .couple-lineage-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.9rem;
   }
 
   .lineage-center-divider {
     flex-direction: row;
     height: auto;
-    padding: 0.2rem 0;
+    padding: 0.25rem 0;
   }
 
   .lineage-center-divider .v-line {
@@ -2227,25 +2249,27 @@
     background: linear-gradient(90deg, transparent, var(--g500), transparent);
   }
 
-  .lineage-column { padding: 1.2rem 1rem; border-radius: 16px; }
-  .lineage-person-name { font-size: 1.15rem; }
-  .lineage-value { font-size: 0.88rem; }
-  .lineage-bio   { font-size: 0.84rem; }
+  .lineage-column { padding: 1.25rem 1rem; border-radius: 18px; }
+  .groom-column { border-top: 2px solid rgba(16,185,129,0.45); }
+  .bride-column { border-top: 2px solid rgba(244,63,94,0.45); }
+  .lineage-person-name { font-size: 1.2rem; }
+  .lineage-value { font-size: 0.9rem; }
+  .lineage-bio   { font-size: 0.85rem; }
 
   /* ── Story / Timeline ── */
   .story-section { padding: 2.5rem 0 4rem; }
 
   /* Sloka card */
-  .sloka-section  { padding: 2rem 0; }
-  .sloka-card     { padding: 1.6rem 1rem; border-radius: 18px; }
-  .sloka-sanskrit { font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.75rem; }
+  .sloka-section  { padding: 1.5rem 0 2.5rem; }
+  .sloka-card     { padding: 1.6rem 1.05rem; border-radius: 20px; }
+  .sloka-sanskrit { font-size: 0.95rem; line-height: 1.85; margin-bottom: 0.75rem; }
   .sloka-malayalam-text { font-size: 0.9rem; }
   .sloka-meaning  { font-size: 0.87rem; }
 
   /* Timeline — left-rail only on mobile */
   .timeline-container { padding: 1rem 0; }
   .timeline-line {
-    left: 1.2rem;
+    left: 1.1rem;
     background: linear-gradient(180deg, transparent, var(--g500) 10%, var(--g500) 90%, transparent);
   }
 
@@ -2253,55 +2277,57 @@
   .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
     justify-content: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 1.65rem;
   }
 
   .timeline-content {
-    width: calc(100% - 3.5rem);
-    padding: 1.2rem 1rem;
-    border-radius: 16px;
+    width: calc(100% - 2.9rem);
+    padding: 1.2rem 1.05rem;
+    border-radius: 18px;
   }
 
   .timeline-node {
-    left: 1.2rem;
-    top: 1.5rem;
+    left: 1.1rem;
+    top: 1.45rem;
     width: 14px; height: 14px;
   }
 
-  .timeline-year  { font-size: 0.65rem; }
-  .timeline-title { font-size: 1rem; }
-  .timeline-desc  { font-size: 0.85rem; }
+  .timeline-year  { font-size: 0.66rem; }
+  .timeline-title { font-size: 1.02rem; }
+  .timeline-desc  { font-size: 0.86rem; }
 
   /* ── Gallery ── */
-  .gallery-section { padding: 4rem 0; }
+  .gallery-section { padding: 3.5rem 0 4rem; }
 
   .gallery-mobile-carousel-wrapper { display: block; }
   .gallery-grid.gallery-desktop-grid { display: none; }
 
   .gallery-mobile-track {
-    padding: 0.5rem 1rem 1.2rem;
-    gap: 0.75rem;
+    padding: 0.5rem 1rem 1.25rem;
+    scroll-padding-inline: 1rem;
+    gap: 0.85rem;
   }
 
   .gallery-slide-card {
-    flex: 0 0 calc(85vw);
-    max-width: 340px;
-    border-radius: 18px;
+    flex: 0 0 82vw;
+    max-width: 330px;
+    border-radius: 20px;
+    border: 1px solid rgba(229,165,0,0.28);
   }
 
   .gallery-slide-img-box { aspect-ratio: 3/4; } /* taller portrait on mobile */
 
-  .gallery-slide-title   { font-size: 0.95rem; }
-  .gallery-slide-caption { font-size: 0.8rem; }
-  .gallery-slide-meta    { padding: 0.85rem 1rem 1rem; }
+  .gallery-slide-title   { font-size: 0.98rem; }
+  .gallery-slide-caption { font-size: 0.82rem; }
+  .gallery-slide-meta    { padding: 0.9rem 1rem 1.1rem; }
 
   .carousel-arrow-btn {
-    width: 40px; height: 40px;
-    min-width: 40px; /* reliable touch target */
+    width: 42px; height: 42px;
+    min-width: 42px; /* reliable touch target */
   }
 
   .carousel-dot { width: 7px; height: 7px; }
-  .carousel-dot.active { width: 20px; }
+  .carousel-dot.active { width: 22px; }
 
   /* Lightbox */
   .lightbox-content {
@@ -2311,7 +2337,7 @@
   }
 
   .lightbox-content img { max-height: 65vh; border-radius: 14px; }
-  .lightbox-close { top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; }
+  .lightbox-close { top: 0.75rem; right: 0.75rem; width: 38px; height: 38px; }
 
   /* ── Mobile Action Dock ── */
   .desktop-flower-btn-wrapper { display: none; }
@@ -2320,17 +2346,23 @@
     padding: 0 0.75rem calc(env(safe-area-inset-bottom, 0px) + 0.65rem);
   }
 
-  .mobile-dock-inner { border-radius: 18px; }
+  .mobile-dock-inner {
+    border-radius: 20px;
+    background: rgba(10, 14, 24, 0.92);
+    backdrop-filter: blur(22px) saturate(1.5);
+    -webkit-backdrop-filter: blur(22px) saturate(1.5);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.85), 0 0 24px rgba(229,165,0,0.16);
+  }
 
-  .dock-item { padding: 1rem 0.5rem; min-height: 52px; }
+  .dock-item { padding: 0.85rem 0.5rem; min-height: 54px; justify-content: center; }
   .dock-label { font-size: 0.72rem; }
 
   /* ── Footer ── */
-  .footer { padding: 4rem 0 2.5rem; }
-  .footer-blessing-card { padding: 1.5rem 1rem; border-radius: 16px; }
+  .footer { padding: 4rem 0 calc(env(safe-area-inset-bottom, 0px) + 6.5rem); }
+  .footer-blessing-card { padding: 1.5rem 1rem; border-radius: 18px; }
   .footer-blessing-malayalam { font-size: 1rem; }
   .footer-blessing-meaning   { font-size: 0.88rem; }
-  .footer-names { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+  .footer-names { font-size: clamp(1.25rem, 6vw, 1.65rem); }
   .footer-hashtag { font-size: 0.9rem; padding: 0.6rem 1.3rem; }
   .footer-credits { font-size: 0.78rem; padding: 0 1rem; }
 
@@ -2348,33 +2380,29 @@
    SMALL PHONES — 400px and below
 ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 400px) {
-  .hero-names { font-size: clamp(1.9rem, 10.5vw, 2.5rem); }
-  .hero-names .ampersand { font-size: clamp(2.2rem, 12vw, 3rem); }
+  .hero-cover { padding: 11.5rem 1rem 1rem; }
+  .hero-names { font-size: clamp(1.95rem, 10.5vw, 2.5rem); }
+  .hero-names .ampersand { font-size: clamp(2.1rem, 11.5vw, 2.8rem); }
 
-  .muhurtham-seal { padding: 0.8rem 0.9rem; }
+  .muhurtham-seal { padding: 0.85rem 0.9rem; }
   .seal-date-row  { font-size: 0.78rem; }
 
+  .countdown-container { gap: 0.45rem; }
   .countdown-box  { height: 72px; border-radius: 12px; }
-  .countdown-num  { font-size: 1.3rem; }
+  .countdown-num  { font-size: 1.28rem; }
 
   .couple-joint-arch-frame {
-    width: min(220px, 75vw);
-    height: min(290px, 95vw);
+    width: min(220px, 72vw);
+    height: min(285px, 90vw);
   }
 
-  .joint-name     { font-size: clamp(1.3rem, 9vw, 2rem); }
+  .joint-name     { font-size: clamp(1.35rem, 9vw, 2rem); }
   .timeline-content { padding: 1rem 0.85rem; }
-  .event-card     { padding: 1.2rem 0.9rem !important; }
+  .event-card     { padding: 1.25rem 0.9rem !important; }
 
-  .gallery-slide-card { flex: 0 0 90vw; }
+  .gallery-slide-card { flex: 0 0 86vw; }
 
-  .nav-links a { padding: 0.8rem 0.8rem; font-size: 0.8rem; }
-}
-
-
-/* Mobile portrait (hidden on desktop, shown on mobile) */
-.hero-mobile-portrait {
-  display: none;
+  .nav-links a { padding: 0.85rem 0.8rem; font-size: 0.8rem; }
 }
 
 /* Dock bless button highlight */

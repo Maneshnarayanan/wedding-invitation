@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, MapPin } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      setMobileMenuOpen(false);
+    };
+    const onClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('pointerdown', onClickOutside);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('pointerdown', onClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { label: 'Couple', href: '#couple' },
@@ -13,7 +33,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="navbar" role="banner">
+    <header ref={navRef} className={`navbar ${scrolled ? 'scrolled' : ''}`} role="banner">
       <a href="#" className="nav-brand" aria-label={`Wedding of ${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`}>
         <span className="brand-desktop">{weddingConfig.groom.fullName}</span>
         <span className="brand-mobile">{weddingConfig.groom.name}</span>

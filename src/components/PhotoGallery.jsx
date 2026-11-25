@@ -7,18 +7,29 @@ export default function PhotoGallery() {
   const [activeSlide, setActiveSlide] = useState(0);
   const carouselRef = useRef(null);
 
+  const getSlideStep = () => {
+    if (!carouselRef.current) return 0;
+    const firstCard = carouselRef.current.querySelector('.gallery-slide-card');
+    if (firstCard) {
+      const style = window.getComputedStyle(carouselRef.current);
+      const gap = parseFloat(style.columnGap || style.gap || '14') || 14;
+      return firstCard.offsetWidth + gap;
+    }
+    return carouselRef.current.clientWidth * 0.84;
+  };
+
   const handleScroll = () => {
     if (!carouselRef.current) return;
-    const { scrollLeft, clientWidth } = carouselRef.current;
-    if (clientWidth === 0) return;
-    const idx = Math.round(scrollLeft / (clientWidth * 0.86));
+    const step = getSlideStep();
+    if (!step) return;
+    const idx = Math.round(carouselRef.current.scrollLeft / step);
     setActiveSlide(Math.min(Math.max(idx, 0), weddingConfig.gallery.length - 1));
   };
 
   const scrollToSlide = (index) => {
     if (!carouselRef.current) return;
-    const cardWidth = carouselRef.current.clientWidth * 0.86;
-    carouselRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+    const step = getSlideStep();
+    carouselRef.current.scrollTo({ left: index * step, behavior: 'smooth' });
     setActiveSlide(index);
   };
 
