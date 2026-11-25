@@ -129,14 +129,63 @@
 
 /* ═══════════════════════════════════════════════════════════════
    OPENING DOORS
+   NOTE: Rendered via React Portal into document.body so it is
+   never clipped by parent overflow / transform / stacking context.
+   Critical for mobile Safari & Android Chrome.
 ═══════════════════════════════════════════════════════════════ */
 .royal-doors-overlay {
   position: fixed;
-  inset: 0;
-  z-index: 10000;
+  top: 0; left: 0; right: 0; bottom: 0;  /* explicit coords safer than inset on old mobile */
+  z-index: 99999;                          /* highest possible — above everything */
   display: flex;
   align-items: stretch;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+/* Tap hint */
+.door-tap-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.door-tap-pulse {
+  display: block;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--g300);
+  position: relative;
+  animation: tap-ring-pulse 1.6s ease-out infinite;
+}
+
+.door-tap-pulse::before {
+  content: '👆';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.door-tap-text {
+  font-family: var(--f-sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--g400);
+}
+
+@keyframes tap-ring-pulse {
+  0%   { transform: scale(1);    opacity: 1; box-shadow: 0 0 0 0 rgba(229,165,0,0.6); }
+  70%  { transform: scale(1.15); opacity: 0.7; box-shadow: 0 0 0 10px rgba(229,165,0,0); }
+  100% { transform: scale(1);    opacity: 1; box-shadow: 0 0 0 0 rgba(229,165,0,0); }
 }
 
 .royal-door-panel {
@@ -1861,22 +1910,314 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE
+   RESPONSIVE — DESKTOP ONLY RULES
 ═══════════════════════════════════════════════════════════════ */
 @media (min-width: 768px) {
   .gallery-mobile-carousel-wrapper { display: none; }
   .gallery-grid.gallery-desktop-grid { display: grid; }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE — 768px and below
+   Mobile-first: optimised for hand-held portrait viewing
+═══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+
+  /* ── Global ── */
+  .container { padding: 0 1rem; }
+
+  .section-header { margin-bottom: 2.5rem; }
+  .section-title  { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+
+  .btn-gold-primary,
+  .btn-gold-secondary {
+    padding: 0.85rem 1.6rem;
+    font-size: 0.88rem;
+    min-height: 48px; /* touch target */
+  }
+
+  /* ── Navbar ── */
+  .brand-desktop { display: none; }
+  .brand-mobile  { display: inline; }
+  .nav-route-btn { display: none; }
+
+  .navbar {
+    top: calc(env(safe-area-inset-top, 0px) + 0.6rem);
+    padding: 0.6rem 1rem;
+    width: calc(100% - 1.5rem);
+    border-radius: 16px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0; right: 0;
+    background: rgba(8, 11, 18, 0.97);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-gold);
+    border-radius: 20px;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+  }
+
+  .nav-links.mobile-open { display: flex; }
+  .mobile-nav-toggle { display: flex; align-items: center; justify-content: center; padding: 0.5rem; }
+
+  .nav-links li { width: 100%; }
+
+  .nav-links a {
+    display: block;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+  }
+
+  .nav-links li:last-child a { border-bottom: none; }
+  .nav-links a:hover { color: var(--g300); background: rgba(229,165,0,0.06); border-radius: 10px; }
+
+  /* ── Opening Doors ── */
+  .door-arch-inset  { width: min(85%, 160px); gap: 0.75rem; }
+  .door-monogram-ring {
+    width: clamp(60px, 18vw, 90px);
+    height: clamp(60px, 18vw, 90px);
+  }
+  .door-monogram    { font-size: clamp(1.4rem, 6vw, 2.2rem); }
+  .door-sloka       { font-size: clamp(0.62rem, 2.5vw, 0.88rem); }
+  .door-kasavu-trim { height: 5px; }
+
+  .royal-center-medallion {
+    width: min(85vw, 300px);
+    padding: 1.4rem 1.2rem;
+  }
+  .medallion-name        { font-size: clamp(1.3rem, 6vw, 1.7rem); }
+  .medallion-ampersand   { font-size: 2rem; }
+  .medallion-lamp-halo   { width: 48px; height: 48px; }
+  .medallion-lamp-icon   { font-size: 1.7rem; }
+
+  /* ── Mobile portrait card ── */
+  .hero-mobile-portrait {
+    display: block;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 65svh;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-mobile-portrait-frame {
+    position: relative;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+
+  .hero-mobile-portrait-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    filter: brightness(0.5) saturate(0.7);
+  }
+
+  .hero-mobile-portrait-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(8,11,18,0.3) 0%,
+      transparent 30%,
+      transparent 55%,
+      rgba(8,11,18,1) 100%
+    );
+  }
+
+  /* ── Hero — mobile portrait layout ── */
+  .hero-section {
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+
+  .hero-portrait-frame { display: none; } /* hidden — bg photo used instead */
+
+  .hero-bg-image {
+    filter: brightness(0.25) saturate(0.5);
+  }
+
+  /* Pull cover content up with more room */
+  .hero-cover {
+    padding: 7rem 1.2rem 1.5rem;
+    min-height: 55vh;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .hero-cover-content {
+    gap: 0.5rem;
+  }
+
+  .hero-invocation  { font-size: 0.82rem; }
+  .hero-subtitle    { font-size: 0.7rem; letter-spacing: 0.28em; }
+
+  /* Couple names — big, stacked, full-width */
+  .hero-names {
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .hero-names .ampersand {
+    font-size: clamp(2.6rem, 12vw, 4rem);
+  }
+
+  .hero-sparkle { font-size: 1.3rem; }
+
+  /* Quick info block */
+  .hero-quick-info {
+    padding: 2rem 1.2rem calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+    gap: 1.2rem;
+    background: linear-gradient(to bottom, transparent, rgba(8,11,18,1) 20%);
+  }
+
+  /* Muhurtham seal — compact on mobile */
+  .muhurtham-seal {
+    padding: 0.9rem 1.2rem;
+    gap: 0.5rem;
+    border-radius: 16px;
+    width: 100%;
+  }
+
+  .seal-date-row   { font-size: 0.85rem; gap: 0.4rem; flex-wrap: wrap; }
+  .seal-muhurtham-highlight { font-size: 0.82rem; padding: 0.28rem 0.9rem; }
+  .seal-lamp       { font-size: 1.1rem; }
+
+  .hero-invitation-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    padding: 0 0.2rem;
+  }
+
+  /* Action buttons — full width stack */
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .hero-actions .btn-gold-primary,
+  .hero-actions .btn-gold-secondary {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95rem;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Countdown — full width, comfortable boxes */
+  .hero-countdown { width: 100%; }
+
+  .countdown-wrapper { max-width: 100%; }
+
+  .countdown-container {
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .countdown-box {
+    height: 80px;
+    min-width: 0;
+    border-radius: 14px;
+    flex: 1;
+  }
+
+  .countdown-num   { font-size: clamp(1.4rem, 6vw, 2rem); }
+  .countdown-label { font-size: 0.58rem; letter-spacing: 0.1em; }
+
+  /* ── Events / Ceremony ── */
+  .events-section  { padding: 4rem 0; }
+
+  .event-card { padding: 1.6rem 1.2rem !important; }
+
+  .event-overview {
+    grid-template-columns: 1fr;
+    gap: 0.5rem 1rem;
+  }
+
+  .event-icon-badge {
+    margin: 0 auto 0.5rem;
+    width: 54px !important; height: 54px !important;
+  }
+
+  .event-title    { font-size: 1.3rem; text-align: center; }
+  .event-subtitle { text-align: center; font-size: 0.95rem; }
+
+  .event-details-list {
+    grid-column: 1;
+    padding: 0.9rem 1rem;
+    gap: 0.6rem;
+  }
+
+  .event-detail-item { font-size: 0.88rem; gap: 0.6rem; }
+
+  /* Venue */
+  .venue-panel { padding: 1.4rem 1.1rem; gap: 0.9rem; }
+  .venue-name  { font-size: 1.1rem; }
+
+  .map-container {
+    aspect-ratio: 4/3;
+    min-height: 200px;
+    border-radius: 12px;
+  }
+
+  .venue-directions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── Couple Section ── */
+  .couple-section { padding: 4rem 0; }
+
+  .couple-master-card {
+    padding: 1.8rem 1rem 1.5rem;
+    border-radius: 24px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Photo arch — taller on mobile for impact */
+  .couple-joint-arch-frame {
+    width: min(260px, 72vw);
+    height: min(340px, 90vw);
+  }
+
+  .couple-joint-photo-wrapper { margin-bottom: 1.2rem; }
+
+  /* Names — stack & bigger */
+  .couple-joint-names-box {
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+  }
+
+  .joint-name  { font-size: clamp(1.5rem, 8vw, 2.2rem); }
+  .joint-weds  { font-size: clamp(1.8rem, 9vw, 2.6rem); }
+  .joint-blessing-quote { font-size: 0.95rem; padding: 0 0.5rem; }
+
+  /* Lineage columns — single column, no center divider */
   .couple-lineage-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    gap: 1rem;
   }
 
   .lineage-center-divider {
     flex-direction: row;
     height: auto;
+    padding: 0.2rem 0;
   }
 
   .lineage-center-divider .v-line {
@@ -1886,38 +2227,171 @@
     background: linear-gradient(90deg, transparent, var(--g500), transparent);
   }
 
-  .timeline-line { left: 1.5rem; }
+  .lineage-column { padding: 1.2rem 1rem; border-radius: 16px; }
+  .lineage-person-name { font-size: 1.15rem; }
+  .lineage-value { font-size: 0.88rem; }
+  .lineage-bio   { font-size: 0.84rem; }
+
+  /* ── Story / Timeline ── */
+  .story-section { padding: 2.5rem 0 4rem; }
+
+  /* Sloka card */
+  .sloka-section  { padding: 2rem 0; }
+  .sloka-card     { padding: 1.6rem 1rem; border-radius: 18px; }
+  .sloka-sanskrit { font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.75rem; }
+  .sloka-malayalam-text { font-size: 0.9rem; }
+  .sloka-meaning  { font-size: 0.87rem; }
+
+  /* Timeline — left-rail only on mobile */
+  .timeline-container { padding: 1rem 0; }
+  .timeline-line {
+    left: 1.2rem;
+    background: linear-gradient(180deg, transparent, var(--g500) 10%, var(--g500) 90%, transparent);
+  }
 
   .timeline-item,
+  .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
     justify-content: flex-end;
+    margin-bottom: 2rem;
   }
 
   .timeline-content {
-    width: calc(100% - 4rem);
+    width: calc(100% - 3.5rem);
+    padding: 1.2rem 1rem;
+    border-radius: 16px;
   }
 
-  .timeline-node { left: 1.5rem; }
+  .timeline-node {
+    left: 1.2rem;
+    top: 1.5rem;
+    width: 14px; height: 14px;
+  }
 
+  .timeline-year  { font-size: 0.65rem; }
+  .timeline-title { font-size: 1rem; }
+  .timeline-desc  { font-size: 0.85rem; }
+
+  /* ── Gallery ── */
+  .gallery-section { padding: 4rem 0; }
+
+  .gallery-mobile-carousel-wrapper { display: block; }
+  .gallery-grid.gallery-desktop-grid { display: none; }
+
+  .gallery-mobile-track {
+    padding: 0.5rem 1rem 1.2rem;
+    gap: 0.75rem;
+  }
+
+  .gallery-slide-card {
+    flex: 0 0 calc(85vw);
+    max-width: 340px;
+    border-radius: 18px;
+  }
+
+  .gallery-slide-img-box { aspect-ratio: 3/4; } /* taller portrait on mobile */
+
+  .gallery-slide-title   { font-size: 0.95rem; }
+  .gallery-slide-caption { font-size: 0.8rem; }
+  .gallery-slide-meta    { padding: 0.85rem 1rem 1rem; }
+
+  .carousel-arrow-btn {
+    width: 40px; height: 40px;
+    min-width: 40px; /* reliable touch target */
+  }
+
+  .carousel-dot { width: 7px; height: 7px; }
+  .carousel-dot.active { width: 20px; }
+
+  /* Lightbox */
+  .lightbox-content {
+    max-width: 95vw;
+    padding: 0.75rem;
+    border-radius: 20px;
+  }
+
+  .lightbox-content img { max-height: 65vh; border-radius: 14px; }
+  .lightbox-close { top: 0.75rem; right: 0.75rem; width: 36px; height: 36px; }
+
+  /* ── Mobile Action Dock ── */
   .desktop-flower-btn-wrapper { display: none; }
 
-  .couple-master-card { padding: 2rem 1.2rem; }
-
-  .hero-cover { min-height: 50vh; }
-  .hero-portrait-frame { display: none; }
-
-  .event-overview {
-    grid-template-columns: 1fr;
+  .mobile-action-dock {
+    padding: 0 0.75rem calc(env(safe-area-inset-bottom, 0px) + 0.65rem);
   }
 
-  .event-icon-badge { margin: 0 auto 0.75rem; }
+  .mobile-dock-inner { border-radius: 18px; }
 
-  .event-details-list { grid-column: 1; }
+  .dock-item { padding: 1rem 0.5rem; min-height: 52px; }
+  .dock-label { font-size: 0.72rem; }
+
+  /* ── Footer ── */
+  .footer { padding: 4rem 0 2.5rem; }
+  .footer-blessing-card { padding: 1.5rem 1rem; border-radius: 16px; }
+  .footer-blessing-malayalam { font-size: 1rem; }
+  .footer-blessing-meaning   { font-size: 0.88rem; }
+  .footer-names { font-size: clamp(1.2rem, 6vw, 1.6rem); }
+  .footer-hashtag { font-size: 0.9rem; padding: 0.6rem 1.3rem; }
+  .footer-credits { font-size: 0.78rem; padding: 0 1rem; }
+
+  /* Blessing toast */
+  .blessing-toast {
+    width: 90vw;
+    max-width: 340px;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  .toast-malayalam-text { font-size: 0.88rem; }
 }
 
-@media (max-width: 480px) {
-  .hero-names { flex-direction: column; gap: 0.2rem; }
-  .couple-joint-names-box { flex-direction: column; }
+/* ═══════════════════════════════════════════════════════════════
+   SMALL PHONES — 400px and below
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-names { font-size: clamp(1.9rem, 10.5vw, 2.5rem); }
+  .hero-names .ampersand { font-size: clamp(2.2rem, 12vw, 3rem); }
+
+  .muhurtham-seal { padding: 0.8rem 0.9rem; }
+  .seal-date-row  { font-size: 0.78rem; }
+
+  .countdown-box  { height: 72px; border-radius: 12px; }
+  .countdown-num  { font-size: 1.3rem; }
+
+  .couple-joint-arch-frame {
+    width: min(220px, 75vw);
+    height: min(290px, 95vw);
+  }
+
+  .joint-name     { font-size: clamp(1.3rem, 9vw, 2rem); }
+  .timeline-content { padding: 1rem 0.85rem; }
+  .event-card     { padding: 1.2rem 0.9rem !important; }
+
+  .gallery-slide-card { flex: 0 0 90vw; }
+
+  .nav-links a { padding: 0.8rem 0.8rem; font-size: 0.8rem; }
+}
+
+
+/* Mobile portrait (hidden on desktop, shown on mobile) */
+.hero-mobile-portrait {
+  display: none;
+}
+
+/* Dock bless button highlight */
+.dock-bless {
+  background: rgba(229, 165, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  color: var(--g300);
+  font-family: var(--f-sans);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.dock-bless:active {
+  background: rgba(229, 165, 0, 0.18);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1927,7 +2401,8 @@
   position: relative;
   min-height: 100vh;
   background: var(--bg);
-  overflow-x: hidden;
+  /* overflow-x hidden REMOVED — it breaks position:fixed on mobile Safari.
+     Horizontal overflow is controlled per-section instead. */
 }
 
 /* Petal floating particles */

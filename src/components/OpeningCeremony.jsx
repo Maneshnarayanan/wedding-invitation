@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import confetti from 'canvas-confetti';
 import { Sparkles } from 'lucide-react';
 import { weddingConfig } from '../data/weddingConfig';
@@ -60,12 +61,10 @@ export default function OpeningCeremony({ onOpen }) {
       scalar: 1.2,
       ticks: 250
     });
-
     setTimeout(() => {
-      confetti({ particleCount: 80, angle: 60, spread: 70, origin: { x: 0, y: 0.6 }, colors: ['#E5A500', '#E11D48', '#FFFFFF', '#FCF7E6'], scalar: 1.15 });
-      confetti({ particleCount: 80, angle: 120, spread: 70, origin: { x: 1, y: 0.6 }, colors: ['#E5A500', '#E11D48', '#FFFFFF', '#FCF7E6'], scalar: 1.15 });
+      confetti({ particleCount: 80, angle: 60,  spread: 70, origin: { x: 0,   y: 0.6 }, colors: ['#E5A500', '#E11D48', '#FFFFFF', '#FCF7E6'], scalar: 1.15 });
+      confetti({ particleCount: 80, angle: 120, spread: 70, origin: { x: 1,   y: 0.6 }, colors: ['#E5A500', '#E11D48', '#FFFFFF', '#FCF7E6'], scalar: 1.15 });
     }, 200);
-
     setTimeout(() => {
       confetti({ particleCount: 100, spread: 160, origin: { y: 0.3 }, colors: ['#E5A500', '#FFF6D5', '#FFE066', '#FFD700'], gravity: 0.7, scalar: 0.9, ticks: 280 });
     }, 450);
@@ -81,24 +80,30 @@ export default function OpeningCeremony({ onOpen }) {
     triggerOpeningSparkles();
     if (onOpen) onOpen();
 
-    setTimeout(() => setIsClosed(true), 1300);
+    // Wait for door swing animation to finish, then unmount
+    setTimeout(() => setIsClosed(true), 1400);
   };
 
+  // Auto-open after a generous pause — longer on mobile so it's clearly seen
   useEffect(() => {
-    const timer = setTimeout(() => handleOpenInvitation(false), 900);
+    // Give the page enough time to fully paint before auto-opening
+    const delay = 2200;
+    const timer = setTimeout(() => handleOpenInvitation(false), delay);
     return () => clearTimeout(timer);
   }, []);
 
   if (isClosed) return null;
 
-  return (
+  // ── Render via Portal into document.body ──────────────────────
+  // This escapes any parent overflow / transform / stacking context
+  // so the overlay always covers the full viewport on mobile Safari too.
+  const overlay = (
     <div
       className={`royal-doors-overlay ${isOpening ? 'doors-opened' : ''}`}
       onClick={() => handleOpenInvitation(true)}
       role="dialog"
       aria-modal="true"
-      aria-label="Royal Wedding Doors"
-      style={{ cursor: 'pointer' }}
+      aria-label="Royal Wedding Doors — tap to open"
     >
       {/* LEFT DOOR */}
       <div className="royal-door-panel door-left">
@@ -112,12 +117,10 @@ export default function OpeningCeremony({ onOpen }) {
               <span className="font-malayalam door-sloka">॥ ശ്രീ ഗുരുഭ്യോ നമഃ ॥</span>
               <span className="door-sub-motif">❦</span>
             </div>
-
             <div className="door-monogram-ring">
               <span className="door-monogram font-royal">M</span>
               <span className="door-monogram-role font-malayalam">വരൻ</span>
             </div>
-
             <div className="door-filigree-bottom">
               <span className="filigree-line" />
               <span className="filigree-symbol">✤</span>
@@ -126,9 +129,7 @@ export default function OpeningCeremony({ onOpen }) {
           </div>
 
           <div className="door-handle handle-left">
-            <div className="handle-plate">
-              <div className="handle-ring" />
-            </div>
+            <div className="handle-plate"><div className="handle-ring" /></div>
           </div>
         </div>
       </div>
@@ -145,12 +146,10 @@ export default function OpeningCeremony({ onOpen }) {
               <span className="font-malayalam door-sloka">॥ ശുഭ വിവാഹം ॥</span>
               <span className="door-sub-motif">❦</span>
             </div>
-
             <div className="door-monogram-ring">
               <span className="door-monogram font-royal">P</span>
               <span className="door-monogram-role font-malayalam">വധു</span>
             </div>
-
             <div className="door-filigree-bottom">
               <span className="filigree-line" />
               <span className="filigree-symbol">✤</span>
@@ -159,9 +158,7 @@ export default function OpeningCeremony({ onOpen }) {
           </div>
 
           <div className="door-handle handle-right">
-            <div className="handle-plate">
-              <div className="handle-ring" />
-            </div>
+            <div className="handle-plate"><div className="handle-ring" /></div>
           </div>
         </div>
       </div>
@@ -191,9 +188,21 @@ export default function OpeningCeremony({ onOpen }) {
             <Sparkles size={13} className="gold-accent" />
             <span className="divider-line" />
           </div>
-          <span className="font-malayalam medallion-blessing-text">॥ ശുഭ വിവാഹം • മംഗളം ഭവതു ॥</span>
+          <span className="font-malayalam medallion-blessing-text">
+            ॥ ശുഭ വിവാഹം • മംഗളം ഭവതു ॥
+          </span>
         </div>
+
+        {/* Tap prompt — especially helpful on mobile */}
+        {!isOpening && (
+          <div className="door-tap-hint">
+            <span className="door-tap-pulse" />
+            <span className="door-tap-text">Tap to open</span>
+          </div>
+        )}
       </div>
     </div>
   );
+
+  return createPortal(overlay, document.body);
 }

@@ -6,8 +6,11 @@ import Countdown, { getWeddingCalendarUrl } from './Countdown';
 export default function Hero() {
   const bgRef = useRef(null);
 
-  // Subtle parallax on scroll
+  // Subtle parallax on scroll — only on non-mobile (saves battery)
   useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px)');
+    if (!mq.matches) return;
+
     const handleScroll = () => {
       if (!bgRef.current) return;
       const scrollY = window.scrollY;
@@ -19,7 +22,8 @@ export default function Hero() {
 
   return (
     <section className="hero-section" id="home">
-      {/* Layered Background */}
+
+      {/* ── Layered Background ── */}
       <div className="hero-bg">
         <img
           ref={bgRef}
@@ -30,14 +34,13 @@ export default function Hero() {
         />
         <div className="hero-bg-gradient" />
 
-        {/* SVG Mandala rings */}
+        {/* SVG Mandala rings (desktop only via CSS opacity) */}
         <svg className="hero-mandala" viewBox="0 0 900 900" aria-hidden="true">
           <circle className="ring-1" cx="450" cy="450" r="380" strokeWidth="1" strokeDasharray="8 16" />
           <circle className="ring-2" cx="450" cy="450" r="310" strokeWidth="0.5" strokeDasharray="4 20" />
           <circle className="ring-3" cx="450" cy="450" r="240" strokeWidth="1.5" strokeDasharray="12 8" />
           <circle cx="450" cy="450" r="170" strokeWidth="0.5" strokeDasharray="6 12" />
           <circle cx="450" cy="450" r="100" strokeWidth="1" strokeDasharray="3 9" />
-          {/* 8 diagonal spokes */}
           {[0, 45, 90, 135, 180, 225, 270, 315].map(a => {
             const r = Math.PI * a / 180;
             const x1 = 450 + 100 * Math.cos(r), y1 = 450 + 100 * Math.sin(r);
@@ -47,14 +50,30 @@ export default function Hero() {
         </svg>
       </div>
 
-      {/* Cover text with portrait */}
+      {/* ── Mobile Portrait Card (visible only on mobile) ── */}
+      <div className="hero-mobile-portrait" aria-hidden="true">
+        <div className="hero-mobile-portrait-frame">
+          <img
+            src={weddingConfig.couplePhotoSecond}
+            alt={`${weddingConfig.groom.fullName} & ${weddingConfig.bride.fullName}`}
+            className="hero-mobile-portrait-img"
+          />
+          {/* Gradient overlay so text below reads clearly */}
+          <div className="hero-mobile-portrait-fade" />
+        </div>
+      </div>
+
+      {/* ── Cover text ── */}
       <div className="hero-cover">
+        {/* Desktop arch frame */}
         <div className="hero-portrait-frame">
           <img src={weddingConfig.couplePhotoFirst} alt="" />
         </div>
 
         <div className="hero-cover-content">
-          <p className="font-malayalam hero-invocation">॥ ശ്രീ ഗുരുഭ്യോ നമഃ • ശുഭ വിവാഹം ॥</p>
+          <p className="font-malayalam hero-invocation">
+            ॥ ശ്രീ ഗുരുഭ്യോ നമഃ • ശുഭ വിവാഹം ॥
+          </p>
           <span className="hero-subtitle">Wedding Invitation</span>
           <h1 className="hero-names">
             <span className="hero-sparkle">✨</span>
@@ -66,11 +85,13 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Quick info + countdown */}
+      {/* ── Info + countdown ── */}
       <div className="hero-quick-info">
+
+        {/* Muhurtham seal */}
         <div className="muhurtham-seal">
           <div className="seal-date-row">
-            <Calendar size={16} style={{ color: 'var(--g400)' }} />
+            <Calendar size={15} style={{ color: 'var(--g400)', flexShrink: 0 }} />
             <span style={{ fontFamily: 'var(--f-royal)', fontWeight: 600 }}>
               {weddingConfig.weddingDateFormatted}
             </span>
@@ -90,18 +111,31 @@ export default function Hero() {
           {weddingConfig.invitationNote}
         </p>
 
+        {/* CTA Buttons */}
         <div className="hero-actions">
-          <a href={getWeddingCalendarUrl()} target="_blank" rel="noopener noreferrer" className="btn-gold-primary">
+          <a
+            href={getWeddingCalendarUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold-primary"
+          >
             <Calendar size={17} /> Save the Date
           </a>
-          <a href={weddingConfig.venue.googleMapsUrl} target="_blank" rel="noopener noreferrer" className="btn-gold-secondary">
+          <a
+            href={weddingConfig.venue.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold-secondary"
+          >
             <MapPin size={17} /> Get Directions
           </a>
         </div>
 
+        {/* Countdown */}
         <div className="hero-countdown">
           <Countdown />
         </div>
+
       </div>
     </section>
   );
